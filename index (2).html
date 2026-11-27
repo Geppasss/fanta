@@ -1,0 +1,1880 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Fanta Consigli</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>/* Layout: app da telefono con testata, schede arrotondate, pulsanti a pillola e barra di navigazione flottante. Palette viola notte e lime. */
+:root {
+  --bg: #f3f1fb; --surface: #ffffff; --surface-2: #ece9f8; --fg: #17132b; --muted: #5d5882; --line: #dcd7ef;
+  --accent: #5b3df5; --accent-fg: #ffffff; --accent-soft: #e7e2ff;
+  --warn: #8a5200; --warn-bg: #fdf0d6; --bad: #b3243a; --bad-bg: #fde2e6; --ok: #17704a; --ok-bg: #dcf3e8;
+  --hero-a: #2f22a0; --hero-b: #5b3df5; --hero-fg: #ffffff; --hero-warn: #ffd27a; --hero-bad: #ffa3b0; --hero-glow: rgba(255,255,255,.22);
+  --pitch: #1f6b45; --pitch-2: #247a4f; --chalk: rgba(255,255,255,.55); --label-bg: rgba(10,10,28,.82);
+  --nav: rgba(255,255,255,.94); --shadow: 0 12px 32px rgba(45,32,120,.18);
+  --r-p: #a8680a; --r-d: #1b7a4e; --r-c: #2b63c9; --r-a: #c23a5a; --ink: #ffffff;
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0c18; --surface: #171430; --surface-2: #211d40; --fg: #efebff; --muted: #a5a0c8; --line: #2e2a54;
+    --accent: #c8f03c; --accent-fg: #111605; --accent-soft: rgba(200,240,60,.14);
+    --warn: #ffbe5c; --warn-bg: #36280f; --bad: #ff7d8c; --bad-bg: #3b1620; --ok: #66e2a4; --ok-bg: #11302a;
+    --hero-a: #1e1566; --hero-b: #120f2e; --hero-glow: rgba(140,110,255,.35);
+    --nav: rgba(23,20,48,.94); --shadow: 0 12px 32px rgba(0,0,0,.55);
+    --pitch: #16553a; --pitch-2: #1a6141;
+    --r-p: #ffc247; --r-d: #5fe3a1; --r-c: #6aa7ff; --r-a: #ff7a98; --ink: #0e0c18;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e0c18; --surface: #171430; --surface-2: #211d40; --fg: #efebff; --muted: #a5a0c8; --line: #2e2a54;
+  --accent: #c8f03c; --accent-fg: #111605; --accent-soft: rgba(200,240,60,.14);
+  --warn: #ffbe5c; --warn-bg: #36280f; --bad: #ff7d8c; --bad-bg: #3b1620; --ok: #66e2a4; --ok-bg: #11302a;
+  --hero-a: #1e1566; --hero-b: #120f2e; --hero-glow: rgba(140,110,255,.35);
+  --nav: rgba(23,20,48,.94); --shadow: 0 12px 32px rgba(0,0,0,.55);
+  --pitch: #16553a; --pitch-2: #1a6141;
+  --r-p: #ffc247; --r-d: #5fe3a1; --r-c: #6aa7ff; --r-a: #ff7a98; --ink: #0e0c18;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.in { max-width: 720px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.1; text-wrap: balance; letter-spacing: -0.02em; }
+p { margin: 8px 0 0; }
+.muted { color: var(--muted); }
+
+/* testata */
+.hero {
+  background: radial-gradient(120% 90% at 85% -10%, var(--hero-glow), transparent 60%), linear-gradient(165deg, var(--hero-a), var(--hero-b));
+  color: var(--hero-fg);
+  margin-top: calc(-1 * env(safe-area-inset-top, 0px));
+  padding-top: calc(env(safe-area-inset-top, 0px) + 22px);
+  padding-bottom: 24px;
+  border-radius: 0 0 28px 28px;
+}
+.hrow { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; }
+.hrow > div:first-child { min-width: 0; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+.hero h1 { font-size: clamp(34px, 10vw, 46px); font-weight: 800; margin-top: 6px; overflow-wrap: anywhere; }
+.hero .sub { opacity: .8; margin-top: 6px; font-size: 14px; }
+.hgd { text-align: right; flex: none; }
+.hgd span { display: block; font-size: 12px; opacity: .8; }
+.hgd b { display: block; font: 800 44px/1 var(--font-display); color: var(--hero-warn); font-variant-numeric: tabular-nums; }
+.hstats { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.hstats > div { background: rgba(255,255,255,.14); border-radius: 99px; padding: 7px 14px 7px 10px; display: flex; align-items: baseline; gap: 8px; }
+.hstats b { font: 800 22px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.hstats span { font-size: 12px; opacity: .85; }
+.hstats .w b { color: var(--hero-warn); }
+.hstats .x b { color: var(--hero-bad); }
+
+main { padding-top: 8px; padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)); }
+section > h2 { font-size: 34px; font-weight: 800; margin-top: 22px; }
+.lead { color: var(--muted); margin-top: 6px; }
+
+/* schede */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 18px; margin-top: 14px; }
+.card h3 { font-size: 20px; font-weight: 700; }
+.card h4 { margin: 16px 0 0; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.btn { font: inherit; font-weight: 700; font-size: 14px; background: var(--accent); color: var(--accent-fg); border: 0; border-radius: 99px; padding: 11px 20px; cursor: pointer; margin-top: 14px; min-height: 44px; }
+.btn.ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+.btn.danger { background: var(--bad); color: #fff; }
+.btn.wide { width: 100%; }
+.seg { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 6px; margin-top: 10px; scrollbar-width: none; }
+.seg::-webkit-scrollbar { display: none; }
+.seg button {
+  font: inherit; font-weight: 700; font-size: 14px; color: var(--fg); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 99px; padding: 10px 18px; cursor: pointer; white-space: nowrap; flex: none; min-height: 42px;
+}
+.seg button[data-tr="P"], .seg button[data-rr="P"] { color: var(--r-p); }
+.seg button[data-tr="D"], .seg button[data-rr="D"] { color: var(--r-d); }
+.seg button[data-tr="C"], .seg button[data-rr="C"] { color: var(--r-c); }
+.seg button[data-tr="A"], .seg button[data-rr="A"] { color: var(--r-a); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* maglie e righe */
+.shirt { display: block; }
+.sh { position: relative; display: inline-block; line-height: 0; }
+.dot { position: absolute; right: -3px; top: -3px; width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--surface); }
+.dot.dubbio, .dot.discordi { background: var(--warn); }
+.dot.out { background: var(--bad); }
+.cd { display: block; height: auto; object-fit: cover; border-radius: 10px; }
+.rows { margin-top: 8px; }
+.rowi { display: grid; grid-template-columns: auto 1fr auto; gap: 0 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+.rows .rowi:first-child { border-top: 0; }
+.rowi .nm { font-weight: 700; line-height: 1.25; }
+.rowi .meta { color: var(--muted); font-size: 13px; }
+.rowi .cost { font: 800 18px var(--font-display); font-variant-numeric: tabular-nums; text-align: right; }
+.rowi .note { grid-column: 2 / 4; color: var(--muted); font-size: 13px; margin-top: 2px; }
+.badge { font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 99px; white-space: nowrap; margin-left: 6px; }
+.badge.out { background: var(--bad-bg); color: var(--bad); }
+.badge.dubbio, .badge.discordi { background: var(--warn-bg); color: var(--warn); }
+
+/* campo */
+.pitch {
+  position: relative; margin-top: 14px; padding: 22px 6px 18px; border-radius: 24px; display: grid; gap: 26px;
+  background: repeating-linear-gradient(0deg, var(--pitch) 0 50px, var(--pitch-2) 50px 100px);
+}
+.pitch svg.lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.prow { position: relative; display: flex; justify-content: center; gap: 4px; }
+.pl { display: flex; flex-direction: column; align-items: center; flex: 1 1 0; max-width: 84px; min-width: 0; }
+.pl .nm { margin-top: 3px; background: var(--label-bg); color: #fff; border-radius: 99px; padding: 2px 8px; font-size: 11.5px; font-weight: 700; max-width: 100%; text-align: center; line-height: 1.2; overflow-wrap: break-word; }
+.pl .pc { font-size: 11px; color: #fff; opacity: .9; font-variant-numeric: tabular-nums; }
+.warnbox { margin-top: 14px; padding: 12px 14px; border-radius: 16px; background: var(--warn-bg); color: var(--warn); font-size: 14px; }
+.okbox { margin-top: 14px; padding: 12px 14px; border-radius: 16px; background: var(--ok-bg); color: var(--ok); font-size: 14px; }
+
+.pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; margin-top: 14px; }
+.pair .lab { display: block; text-align: center; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+.pair > svg { width: 22px; height: 22px; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-top: 18px; }
+.why { color: var(--muted); font-size: 13px; margin-top: 8px; }
+.need { padding: 9px 0; border-top: 1px solid var(--line); }
+.need:first-of-type { border-top: 0; }
+
+/* tile, barre, tabelle */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; margin-top: 10px; }
+.tile { border: 1px solid var(--line); border-radius: 18px; padding: 12px 6px 10px; text-align: center; background: var(--surface); min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.tile .nm { font-weight: 700; font-size: 14px; line-height: 1.2; overflow-wrap: anywhere; }
+.tile .meta { color: var(--muted); font-size: 12px; }
+.tile .cost { font: 800 17px var(--font-display); font-variant-numeric: tabular-nums; }
+.bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; margin-top: 10px; background: var(--line); }
+.bar span { display: block; min-width: 2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; }
+.stat { display: flex; gap: 8px; justify-content: space-between; margin-top: 8px; font-size: 14px; flex-wrap: wrap; }
+.stat b { font-variant-numeric: tabular-nums; }
+.rk { padding: 8px 0; border-top: 1px solid var(--line); }
+.rk:first-child { border-top: 0; }
+.rk .top { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+.rk .top b { font-variant-numeric: tabular-nums; }
+.meter { height: 7px; border-radius: 4px; background: var(--surface-2); margin-top: 6px; overflow: hidden; }
+.meter span { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+.tablewrap { overflow-x: auto; margin-top: 8px; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+td, th { text-align: left; padding: 8px 12px 8px 0; border-top: 1px solid var(--line); font-size: 14px; white-space: nowrap; }
+th { font-size: 12px; color: var(--muted); font-weight: 600; border-top: 0; letter-spacing: .06em; text-transform: uppercase; }
+.foot { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.foot a { color: var(--accent); }
+
+/* forza squadra e calcolatore */
+.gauge { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin-top: 10px; }
+.gauge span { height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+.gauge i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+.big { font: 800 34px/1 var(--font-display); font-variant-numeric: tabular-nums; color: var(--accent); }
+.big small { font: 600 14px var(--font-body); color: var(--muted); }
+.rtiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+.rt { background: var(--surface-2); border-radius: 14px; padding: 10px 4px 8px; text-align: center; border-top: 3px solid var(--line); min-width: 0; }
+.rt b { display: block; font: 800 18px var(--font-display); font-variant-numeric: tabular-nums; }
+.rt span { font-size: 11px; color: var(--muted); }
+.rt em { display: block; font-style: normal; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.rt em.up { color: var(--ok); }
+.rt em.dn { color: var(--bad); }
+.r-P { border-top-color: var(--r-p); } .r-D { border-top-color: var(--r-d); } .r-C { border-top-color: var(--r-c); } .r-A { border-top-color: var(--r-a); }
+.cpair { border: 1px solid var(--line); border-radius: 18px; padding: 4px 14px 14px; margin-top: 12px; }
+.chead { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.verdict { border-radius: 20px; padding: 16px; margin-top: 16px; text-align: center; }
+.verdict .vt { font: 800 28px/1.1 var(--font-display); }
+.verdict.good { background: var(--ok-bg); color: var(--ok); }
+.verdict.bad { background: var(--bad-bg); color: var(--bad); }
+.verdict.even { background: var(--warn-bg); color: var(--warn); }
+.verdict p { color: inherit; margin-top: 6px; }
+
+/* barra in basso: pillola flottante */
+.bottom { position: fixed; left: 0; right: 0; bottom: 0; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 20; pointer-events: none; }
+.bottom .in { pointer-events: auto; display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; background: var(--nav); border: 1px solid var(--line); border-radius: 30px; padding: 6px; box-shadow: var(--shadow); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.bottom button { font: inherit; background: none; border: 0; color: var(--muted); padding: 8px 0 7px; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10px; font-weight: 700; cursor: pointer; min-width: 0; border-radius: 22px; }
+.bottom button[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+.bottom svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* moduli e campi */
+.fld { display: grid; gap: 6px; margin-top: 12px; }
+.fld label { font-size: 14px; font-weight: 600; }
+input[type=text], input[type=password], input[type=email], select, textarea {
+  font: inherit; font-size: 15px; color: var(--fg); background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 14px; padding: 11px 14px; width: 100%; min-width: 0;
+}
+textarea { min-height: 110px; resize: vertical; }
+.pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.45 ui-monospace, Menlo, Consolas, monospace; background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin: 8px 0 0; max-height: 360px; overflow: auto; }
+details summary { cursor: pointer; font-weight: 700; margin-top: 10px; }
+details ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--muted); }
+.st { display: flex; justify-content: space-between; gap: 8px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; flex-wrap: wrap; }
+.st:first-of-type { border-top: 0; }
+.err { color: var(--bad); font-size: 13px; }
+.btn[disabled] { opacity: .5; cursor: default; }
+.btnrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+label.btn { display: inline-block; line-height: 22px; }
+.logbox { font: 12px/1.5 ui-monospace, Menlo, Consolas, monospace; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 8px; }
+.by { font-size: 13px; margin-top: 8px; }
+.vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
+.chk { display: flex; gap: 8px; align-items: flex-start; margin-top: 12px; font-size: 14px; }
+.chk input { margin-top: 3px; }
+.link { background: none; border: 0; color: var(--accent); font: inherit; font-weight: 600; text-decoration: underline; padding: 8px 0; cursor: pointer; }
+.steps { display: flex; gap: 6px; margin-top: 16px; }
+.steps span { flex: 1; height: 5px; border-radius: 99px; background: var(--line); }
+.steps span.on { background: var(--accent); }
+#screen { padding-top: 6px; padding-bottom: 40px; }
+body[data-mode="screen"] main, body[data-mode="screen"] nav.bottom { display: none; }
+body[data-mode="app"] #screen { display: none; }
+form .btn { margin-top: 16px; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body data-mode="screen">
+<header class="hero gut">
+  <div class="in">
+    <div class="hrow"><div><div class="eyebrow" id="h-eye"></div>
+    <h1 id="h-title">Fanta Consigli</h1>
+    <p class="sub" id="h-sub"></p></div><div class="hgd" id="h-gd"></div></div>
+    <div class="hstats" id="hstats"></div>
+  </div>
+</header>
+
+<div id="screen" class="gut"><div class="in" id="screen-in"></div></div>
+
+<main class="gut">
+  <div class="in">
+    <section id="home" hidden></section>
+    <section id="formazione" hidden></section>
+    <section id="scambi" hidden></section>
+    <section id="analisi" hidden></section>
+    <section id="rose" hidden></section>
+    <section id="lega" hidden></section>
+    <section id="profilo" hidden></section>
+    <footer class="foot">
+      <p>Fanta Consigli non è collegato né approvato da Leghe FC o da Fantacalcio.it. Le statistiche le cercano le IA e possono contenere errori: controlla sempre gli infortuni prima della scadenza. Senza IA i consigli usano solo prezzo e disponibilità.</p>
+    </footer>
+  </div>
+</main>
+
+<nav class="bottom gut" aria-label="Sezioni">
+  <div class="in" id="nav"></div>
+</nav>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+/* ===== configurazione Firebase (pubblica per natura: i dati li protegge Firestore con le regole) ===== */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAsNOwqRQVQTYp9FQeWYRhXKvbVGKsHWLQ",
+  authDomain: "fanta-b525d.firebaseapp.com",
+  projectId: "fanta-b525d",
+  storageBucket: "fanta-b525d.firebasestorage.app",
+  messagingSenderId: "1019043556644",
+  appId: "1:1019043556644:web:a0829b76a1e73b41b617b1"
+};
+
+/* ===== costanti e stato ===== */
+const ROLES = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
+const ROLE_ONE = { P: "Portiere", D: "Difensore", C: "Centrocampista", A: "Attaccante" };
+const LABEL = { out: "Assente", dubbio: "In dubbio", discordi: "Fonti discordi" };
+const LABEL_LOW = { out: "assente", dubbio: "in dubbio", discordi: "incerto, fonti discordi" };
+const MODULES = ["3-4-3", "3-5-2", "4-3-3", "4-4-2", "4-5-1", "5-3-2"];
+const FREE_KEY = "Svincolati";
+let DATA = {}, FREE = [], ME = "", LEAGUE = "", TEAMS = [];
+let CAL = [], GIORNATA = null, STATUSN = {}, IMGS = {};
+let USER = null, PROFILE = null, db = null, auth = null;
+
+const state = {
+  mod: "3-4-3", tradeRole: "D", fsrc: "maj", log: [], busy: false, manText: "", manKind: "chatgpt",
+  legaView: "inf", calc: null, infTeam: "Tutte", infKind: "tutti", roseTeam: "", roseRole: "T", msg: ""
+};
+
+const $ = (id) => document.getElementById(id);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ESC[c]);
+const clean = (s) => String(s == null ? "" : s).replace(/[<>&"`\\]/g, "").replace(/\s+/g, " ").trim().slice(0, 48);
+function norm(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]/g, ""); }
+const fmt = (ts) => new Date(ts).toLocaleString("it-IT", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+const todayIt = () => new Date().toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+const sum = (arr) => arr.reduce((a, p) => a + (p.c || 0), 0);
+
+/* archivio locale, separato per account: chiavi, ricerche e risultati restano su questo dispositivo */
+const NS = () => "fanta." + (USER ? USER.uid : "anon") + ".";
+function lsGet(k, d) { try { const v = localStorage.getItem(NS() + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
+function lsSet(k, v) { try { localStorage.setItem(NS() + k, JSON.stringify(v)); } catch (e) { /* archivio non disponibile */ } }
+function lsDelAll() {
+  try {
+    const p = NS(); const del = [];
+    for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.indexOf(p) === 0) { del.push(k); } }
+    del.forEach((k) => localStorage.removeItem(k));
+  } catch (e) { /* niente */ }
+}
+const store = { keys: {}, models: {}, dossier: null, results: {}, status: {}, cal: null };
+function loadLocal() {
+  store.keys = lsGet("keys", {}); store.models = lsGet("models", {}); store.dossier = lsGet("dossier", null);
+  store.results = lsGet("results", {}); store.status = lsGet("status", {}); store.cal = lsGet("cal", null);
+  applyLocalData();
+}
+function save() {
+  lsSet("keys", store.keys); lsSet("models", store.models); lsSet("dossier", store.dossier);
+  lsSet("results", store.results); lsSet("status", store.status); lsSet("cal", store.cal);
+}
+function applyLocalData() {
+  STATUSN = store.status || {};
+  CAL = store.cal && store.cal.rows ? store.cal.rows : [];
+  GIORNATA = store.cal && store.cal.n ? store.cal.n : null;
+}
+
+/* immagini caricate dall'utente: restano nel browser (IndexedDB), mai sul server */
+function idbOpen() {
+  return new Promise((res, rej) => {
+    try {
+      const r = indexedDB.open("fanta-img", 1);
+      r.onupgradeneeded = () => { r.result.createObjectStore("img"); };
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    } catch (e) { rej(e); }
+  });
+}
+async function idbGet(key) {
+  try { const d = await idbOpen(); return await new Promise((res) => { const q = d.transaction("img").objectStore("img").get(key); q.onsuccess = () => res(q.result || {}); q.onerror = () => res({}); }); }
+  catch (e) { return {}; }
+}
+async function idbPut(key, val) {
+  try { const d = await idbOpen(); await new Promise((res) => { const t = d.transaction("img", "readwrite"); t.objectStore("img").put(val, key); t.oncomplete = () => res(); t.onerror = () => res(); }); }
+  catch (e) { /* senza archivio le immagini durano fino alla chiusura della pagina */ }
+}
+async function loadImgs() { IMGS = USER ? await idbGet(USER.uid) : {}; }
+async function saveImgs() { if (USER) { await idbPut(USER.uid, IMGS); } }
+
+/* ===== lettura dei file .xlsx senza librerie esterne ===== */
+async function inflateRaw(u8) {
+  const stream = new Blob([u8]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+async function unzip(buf) {
+  const u8 = new Uint8Array(buf); const dv = new DataView(buf); const td = new TextDecoder();
+  let e = u8.length - 22;
+  while (e >= 0 && dv.getUint32(e, true) !== 0x06054b50) { e--; }
+  if (e < 0) { throw new Error("Il file non è un .xlsx valido"); }
+  const n = dv.getUint16(e + 10, true); let p = dv.getUint32(e + 16, true);
+  const files = {};
+  for (let i = 0; i < n; i++) {
+    if (dv.getUint32(p, true) !== 0x02014b50) { break; }
+    const nlen = dv.getUint16(p + 28, true), xlen = dv.getUint16(p + 30, true), clen = dv.getUint16(p + 32, true);
+    files[td.decode(u8.subarray(p + 46, p + 46 + nlen))] = { method: dv.getUint16(p + 10, true), csize: dv.getUint32(p + 20, true), lho: dv.getUint32(p + 42, true) };
+    p += 46 + nlen + xlen + clen;
+  }
+  return {
+    names: Object.keys(files),
+    async get(name) {
+      const f = files[name]; if (!f) { return null; }
+      const nl = dv.getUint16(f.lho + 26, true), xl = dv.getUint16(f.lho + 28, true);
+      const st = f.lho + 30 + nl + xl; const data = u8.subarray(st, st + f.csize);
+      return td.decode(f.method === 0 ? data : await inflateRaw(data));
+    }
+  };
+}
+const xmlDoc = (s) => new DOMParser().parseFromString(s, "application/xml");
+function colIdx(ref) { const m = /^([A-Z]+)(\d+)$/.exec(ref); let c = 0; for (let i = 0; i < m[1].length; i++) { c = c * 26 + m[1].charCodeAt(i) - 64; } return [parseInt(m[2], 10) - 1, c - 1]; }
+async function readXlsx(buf) {
+  const z = await unzip(buf);
+  const wb = xmlDoc(await z.get("xl/workbook.xml"));
+  const relx = await z.get("xl/_rels/workbook.xml.rels");
+  const relMap = {};
+  if (relx) { xmlDoc(relx).querySelectorAll("Relationship").forEach((r) => { relMap[r.getAttribute("Id")] = r.getAttribute("Target"); }); }
+  const sst = [];
+  const ssx = await z.get("xl/sharedStrings.xml");
+  if (ssx) { xmlDoc(ssx).querySelectorAll("si").forEach((si) => { sst.push(Array.from(si.querySelectorAll("t")).map((t) => t.textContent).join("")); }); }
+  const fillColors = []; const xfFill = [];
+  const stx = await z.get("xl/styles.xml");
+  if (stx) {
+    const sd = xmlDoc(stx);
+    sd.querySelectorAll("fills > fill").forEach((f) => { const fg = f.querySelector("fgColor"); fillColors.push(fg && fg.getAttribute("rgb") ? fg.getAttribute("rgb").slice(-6).toLowerCase() : null); });
+    sd.querySelectorAll("cellXfs > xf").forEach((x) => { xfFill.push(parseInt(x.getAttribute("fillId") || "0", 10)); });
+  }
+  const sheets = [];
+  const list = Array.from(wb.querySelectorAll("sheet"));
+  for (let i = 0; i < list.length; i++) {
+    const rid = list[i].getAttribute("r:id");
+    let target = relMap[rid] || ("worksheets/sheet" + (i + 1) + ".xml");
+    target = target.replace(/^\//, ""); if (target.indexOf("xl/") !== 0) { target = "xl/" + target; }
+    const sx = await z.get(target); if (!sx) { continue; }
+    const rows = [];
+    xmlDoc(sx).querySelectorAll("c").forEach((c) => {
+      const rc = colIdx(c.getAttribute("r")); const t = c.getAttribute("t");
+      let v = null; const ve = c.querySelector("v");
+      if (t === "s" && ve) { v = sst[parseInt(ve.textContent, 10)]; }
+      else if (t === "inlineStr") { v = Array.from(c.querySelectorAll("t")).map((x) => x.textContent).join(""); }
+      else if (ve) { v = ve.textContent; if (t !== "str" && t !== "b" && t !== "e" && v !== "" && !isNaN(Number(v))) { v = Number(v); } }
+      const s = c.getAttribute("s");
+      const color = s != null && xfFill[+s] != null ? fillColors[xfFill[+s]] : null;
+      if (v === null || v === "") { return; }
+      (rows[rc[0]] = rows[rc[0]] || [])[rc[1]] = { v: v, color: color };
+    });
+    sheets.push({ name: list[i].getAttribute("name"), rows: rows });
+  }
+  return sheets;
+}
+
+/* ===== interpretazione delle rose e degli svincolati ===== */
+const ROLE_COLORS = { f7dead: "P", a5c48d: "D", "7ca8f0": "C", e48997: "A" };
+function roleFromText(s) {
+  const t = String(s || "").trim().toLowerCase();
+  if (/^(p|por|portiere|portieri|gk)$/.test(t)) { return "P"; }
+  if (/^(d|dif|difensore|difensori|def)$/.test(t)) { return "D"; }
+  if (/^(c|cen|centrocampista|centrocampisti|mid)$/.test(t)) { return "C"; }
+  if (/^(a|att|attaccante|attaccanti|fw)$/.test(t)) { return "A"; }
+  return null;
+}
+function parseRoster(sheet) {
+  const rows = sheet.rows; const teams = {};
+  let hr = -1;
+  for (let r = 0; r < Math.min(rows.length, 8) && hr < 0; r++) {
+    (rows[r] || []).forEach((c, i) => { const nx = (rows[r] || [])[i + 1]; if (c && nx && /^costo$/i.test(String(nx.v).trim())) { hr = r; } });
+  }
+  if (hr < 0) { throw new Error("Non trovo le colonne delle squadre: serve il file delle rose con la colonna \"costo\" accanto a ogni squadra."); }
+  const colorRole = Object.assign({}, ROLE_COLORS);
+  const head = rows[hr];
+  head.forEach((c, ci) => {
+    const nx = head[ci + 1];
+    if (!c || !nx || !/^costo$/i.test(String(nx.v).trim())) { return; }
+    const name = clean(c.v); if (!name) { return; }
+    const pl = []; let blank = 0; const order = [];
+    for (let r = hr + 1; r < rows.length; r++) {
+      const nc = (rows[r] || [])[ci]; const cc = (rows[r] || [])[ci + 1];
+      if (!nc || typeof nc.v !== "string" || !nc.v.trim()) { if (++blank > 1) { break; } continue; }
+      blank = 0;
+      if (/^totale$/i.test(nc.v.trim())) { break; }
+      const cost = cc && typeof cc.v === "number" ? Math.round(cc.v) : 0;
+      if (nc.color && order.indexOf(nc.color) < 0 && nc.color !== "eeeeee" && nc.color !== "333333") { order.push(nc.color); }
+      pl.push({ n: clean(nc.v), c: cost, col: nc.color });
+    }
+    if (order.length === 4 && !order.some((k) => colorRole[k])) { order.forEach((k, i) => { colorRole[k] = "PDCA"[i]; }); }
+    teams[name] = pl;
+  });
+  const out = {}; let unknown = 0;
+  Object.keys(teams).forEach((t) => {
+    out[t] = teams[t].filter((p) => p.n).map((p) => { const r = colorRole[p.col]; if (!r) { unknown++; } return { n: p.n, r: r || "C", c: p.c }; });
+  });
+  if (!Object.keys(out).length) { throw new Error("Nel file non ci sono squadre con giocatori."); }
+  if (unknown > 0) { throw new Error("Non riesco a capire il ruolo di " + unknown + " giocatori: nel file i ruoli sono indicati dal colore delle celle, che qui manca."); }
+  return out;
+}
+function parseFreeRows(rows) {
+  /* rows: array di righe, ogni riga un array di {v,color} */
+  const list = []; const seen = {};
+  let cn = -1, cr = -1, cc = -1, ct = -1, start = 0;
+  for (let r = 0; r < Math.min(rows.length, 6); r++) {
+    const row = rows[r] || []; let hit = false;
+    row.forEach((c, i) => {
+      const t = norm(c && c.v);
+      if (/^(nome|giocatore|calciatore|nomegiocatore)$/.test(t)) { cn = i; hit = true; }
+      else if (/^(ruolo|r)$/.test(t)) { cr = i; hit = true; }
+      else if (/^(squadra|team|club)$/.test(t)) { ct = i; hit = true; }
+      else if (/^(costo|quotazione|qt|prezzo|crediti|qta|qtainiziale|qtattuale)$/.test(t)) { if (cc < 0) { cc = i; } hit = true; }
+    });
+    if (hit) { start = r + 1; break; }
+  }
+  for (let r = start; r < rows.length; r++) {
+    const row = rows[r]; if (!row) { continue; }
+    const cells = []; row.forEach((c, i) => { if (c) { cells[i] = c; } });
+    let role = null, name = "", cost = 0, team = "";
+    if (cn >= 0) {
+      name = clean(cells[cn] && cells[cn].v);
+      if (cr >= 0 && cells[cr]) { role = roleFromText(cells[cr].v); }
+      if (cc >= 0 && cells[cc] && typeof cells[cc].v === "number") { cost = Math.round(cells[cc].v); }
+      if (ct >= 0 && cells[ct]) { team = clean(cells[ct].v); }
+    } else {
+      cells.forEach((c) => {
+        if (!c) { return; }
+        const v = c.v;
+        if (!role && typeof v === "string" && roleFromText(v)) { role = roleFromText(v); return; }
+        if (typeof v === "number") { if (!cost) { cost = Math.round(v); } return; }
+        if (typeof v === "string" && /[a-zA-ZÀ-ÿ]/.test(v) && !name) { name = clean(v); }
+      });
+    }
+    if (!role) { cells.forEach((c) => { if (c && c.color && ROLE_COLORS[c.color] && !role) { role = ROLE_COLORS[c.color]; } }); }
+    if (!name || name.length < 2 || !role || /^(nome|giocatore|ruolo|totale)$/i.test(name)) { continue; }
+    const k = norm(name) + role; if (seen[k]) { continue; } seen[k] = true;
+    list.push({ n: name, r: role, c: cost, t: team });
+  }
+  return list.slice(0, 3000);
+}
+function parseFreeText(text) {
+  const rows = String(text || "").split(/\r?\n/).map((ln) => {
+    const parts = ln.indexOf("\t") >= 0 ? ln.split("\t") : (ln.indexOf(";") >= 0 ? ln.split(";") : (ln.indexOf(",") >= 0 && /,\s*\S/.test(ln) && ln.split(",").length >= 3 ? ln.split(",") : ln.split(/\s{2,}|\s(?=[PDCA]\s)|\s-\s/)));
+    return parts.map((x) => x.trim()).filter((x) => x !== "").map((x) => ({ v: /^\d+$/.test(x) ? Number(x) : x, color: null }));
+  }).filter((r) => r.length);
+  return parseFreeRows(rows);
+}
+async function parseFreeFile(file) {
+  const name = file.name.toLowerCase();
+  if (/\.xlsx$/.test(name)) {
+    const sheets = await readXlsx(await file.arrayBuffer());
+    let best = [];
+    sheets.forEach((s) => { const l = parseFreeRows(s.rows); if (l.length > best.length) { best = l; } });
+    return best;
+  }
+  return parseFreeText(await file.text());
+}
+
+/* ===== accesso ai dati ===== */
+const poolOf = (team) => (team === FREE_KEY ? FREE : (DATA[team] || []));
+const player = (team, name) => poolOf(team).find((p) => p.n === name);
+const stOf = (team, name) => { const s = STATUSN[norm(name)]; return s ? { k: s[0], t: s[1] } : null; };
+const rank = (team, name) => { const s = stOf(team, name); return !s ? 0 : (s.k === "out" ? 2 : 1); };
+const badge = (s) => s ? '<span class="badge ' + s.k + '">' + LABEL[s.k] + '</span>' : "";
+
+/* ===== maglie e righe ===== */
+function shirtSvg(r, n, size) {
+  const ini = n.replace(/[^A-Za-zÀ-ÿ]/g, "").slice(0, 2).toUpperCase();
+  const s = size || 52;
+  return '<svg class="shirt" width="' + s + '" height="' + s + '" viewBox="0 0 64 64" aria-hidden="true">' +
+    '<path d="M21 5 8 12 2 29l12 4 3-6v31h30V27l3 6 12-4-6-17-13-7c-2 6-6 9-11 9s-9-3-11-9z" style="fill:var(--r-' + r.toLowerCase() + ')"/>' +
+    '<path d="M26 5c1 5 3 7 6 7s5-2 6-7" style="fill:none;stroke:var(--ink);stroke-width:2;opacity:.7"/>' +
+    '<text x="32" y="44" text-anchor="middle" style="fill:var(--ink);font:700 16px var(--font-display)">' + esc(ini) + '</text></svg>';
+}
+function shirtDot(team, p, w) {
+  const s = stOf(team, p.n);
+  const im = IMGS[norm(p.n)];
+  const core = im
+    ? '<img class="cd" src="' + im + '" width="' + w + '" height="' + Math.round(w * 1.2) + '" alt="">'
+    : shirtSvg(p.r, p.n, w);
+  return '<span class="sh">' + core + (s ? '<i class="dot ' + s.k + '"></i>' : "") + '</span>';
+}
+function rowOf(team, p, extra) {
+  const s = stOf(team, p.n);
+  return '<div class="rowi">' + shirtDot(team, p, 40) +
+    '<div><div class="nm">' + p.n + badge(s) + '</div><div class="meta">' + ROLE_ONE[p.r] + (extra ? ' &middot; ' + esc(extra) : "") + '</div></div>' +
+    '<div class="cost">' + (p.c || "") + '</div>' + (s ? '<div class="note">' + esc(s.t) + '</div>' : "") + '</div>';
+}
+function tileOf(team, name) {
+  const p = player(team, name);
+  if (!p) { return '<div class="tile"><div class="nm">' + esc(name) + '</div></div>'; }
+  return '<div class="tile">' + shirtDot(team, p, 56) + '<div class="nm">' + p.n + '</div><div class="meta">' + esc(team) + '</div><div class="cost">' + (p.c || "") + '</div></div>';
+}
+
+/* ===== formazione di base ===== */
+function pickXI(mod) {
+  const parts = mod.split("-").map(Number);
+  const need = { P: 1, D: parts[0], C: parts[1], A: parts[2] };
+  const mine = DATA[ME] || [];
+  const xi = {}; const used = {};
+  Object.keys(need).forEach((r) => {
+    const pool = mine.filter((p) => p.r === r && rank(ME, p.n) < 2).sort((x, y) => rank(ME, x.n) - rank(ME, y.n) || y.c - x.c);
+    xi[r] = pool.slice(0, need[r]);
+    xi[r].forEach((p) => { used[p.n] = true; });
+  });
+  const rest = mine.filter((p) => !used[p.n]);
+  const bench = rest.filter((p) => rank(ME, p.n) < 2)
+    .sort((x, y) => (x.r === "P" ? 0 : 1) - (y.r === "P" ? 0 : 1) || rank(ME, x.n) - rank(ME, y.n) || y.c - x.c).slice(0, 7);
+  const bn = {}; bench.forEach((p) => { bn[p.n] = true; });
+  return { xi: xi, bench: bench, others: rest.filter((p) => !bn[p.n]) };
+}
+function bestMod() {
+  let best = null;
+  MODULES.forEach((m) => {
+    const pk = pickXI(m);
+    const all = [].concat(pk.xi.P, pk.xi.D, pk.xi.C, pk.xi.A);
+    const full = all.length === 11 ? 0 : 1;
+    const fl = all.filter((p) => rank(ME, p.n) > 0).length;
+    const key = [full, fl, -sum(all)];
+    if (!best || key[0] < best.k[0] || (key[0] === best.k[0] && (key[1] < best.k[1] || (key[1] === best.k[1] && key[2] < best.k[2])))) { best = { m: m, k: key }; }
+  });
+  return best ? best.m : "3-4-3";
+}
+function modNeed(mod) { const a = String(mod).split("-").map(Number); return { P: 1, D: a[0] || 3, C: a[1] || 4, A: a[2] || 3 }; }
+const needFor = () => modNeed(bestMod());
+
+function pitchLines() {
+  return '<svg class="lines" viewBox="0 0 100 140" preserveAspectRatio="none" aria-hidden="true">' +
+    '<g fill="none" stroke="var(--chalk)" stroke-width="1.4" vector-effect="non-scaling-stroke">' +
+    '<rect x="3" y="3" width="94" height="134" vector-effect="non-scaling-stroke"/>' +
+    '<path d="M3 70h94" vector-effect="non-scaling-stroke"/>' +
+    '<ellipse cx="50" cy="70" rx="13" ry="9" vector-effect="non-scaling-stroke"/>' +
+    '<rect x="25" y="3" width="50" height="18" vector-effect="non-scaling-stroke"/>' +
+    '<rect x="25" y="119" width="50" height="18" vector-effect="non-scaling-stroke"/></g></svg>';
+}
+function pitchHtml(v, withVotes) {
+  const rows = ["A", "C", "D", "P"].map((r) => '<div class="prow">' + (v.xi[r] || []).map((p) =>
+    '<div class="pl">' + shirtDot(ME, p, 58) + '<div class="nm">' + p.n + '</div><div class="pc">' +
+    (withVotes ? (v.votes[p.n] || 0) + '/' + v.n + ' IA' : (p.c || "")) + '</div></div>').join("") + '</div>').join("");
+  return '<div class="pitch">' + pitchLines() + rows + '</div>';
+}
+
+function renderFormazioneBase(top, noAI) {
+  const pk = pickXI(state.mod); const best = bestMod();
+  const seg = MODULES.map((m) => '<button data-mod="' + m + '" aria-pressed="' + (m === state.mod) + '">' + m + '</button>').join("");
+  const all = [].concat(pk.xi.P, pk.xi.D, pk.xi.C, pk.xi.A);
+  const flagged = all.filter((p) => stOf(ME, p.n));
+  const alertBox = all.length < 11
+    ? '<div class="warnbox">Con questo modulo non hai abbastanza giocatori disponibili per tutti i ruoli: ne mancano ' + (11 - all.length) + '.</div>'
+    : (flagged.length
+      ? '<div class="warnbox">Con questo modulo devi schierare ' + flagged.map((p) => p.n + ' (' + LABEL_LOW[stOf(ME, p.n).k] + ')').join(", ") + '. Ricontrolla prima della scadenza.</div>'
+      : '<div class="okbox">Tutti i titolari sono senza segnalazioni di infortunio o squalifica' + (hasStatus() ? "." : " (ma gli infortuni non sono ancora stati cercati: vai in Analisi).") + '</div>');
+  const rec = state.mod === best ? "È il modulo con meno giocatori a rischio nella tua rosa." : "Il modulo base con meno giocatori a rischio è il " + best + ".";
+  $("formazione").innerHTML = '<h2>Formazione</h2>' + top +
+    (noAI ? '<div class="warnbox">Senza IA: formazione scelta solo con prezzo e disponibilità. Vai in Analisi per collegare le IA.</div>'
+          : '<p class="lead">Base: solo prezzo e disponibilità, senza statistiche.</p>') +
+    '<p class="lead">Scegli il modulo: la squadra si ricalcola con i migliori disponibili per ruolo.</p>' +
+    '<div class="seg" role="group" aria-label="Modulo">' + seg + '</div>' +
+    '<div class="pitch">' + pitchLines() + ["A", "C", "D", "P"].map((r) => '<div class="prow">' + pk.xi[r].map((p) => '<div class="pl">' + shirtDot(ME, p, 58) +
+      '<div class="nm">' + p.n + '</div><div class="pc">' + (p.c || "") + '</div></div>').join("") + '</div>').join("") + '</div>' + alertBox +
+    '<p class="lead">' + rec + ' Crediti pagati per questi undici: <b>' + sum(all) + '</b>. La tua lega potrebbe non ammettere tutti i moduli.</p>' +
+    '<div class="card"><h3>Panchina</h3><p class="lead">In ordine di utilità, prima il portiere di riserva.</p><div class="rows">' +
+    (pk.bench.length ? pk.bench.map((p) => rowOf(ME, p)).join("") : '<p class="lead">Nessuno.</p>') + '</div></div>' +
+    '<div class="card"><h3>Non convocati</h3><div class="rows">' +
+    (pk.others.length ? pk.others.map((p) => rowOf(ME, p)).join("") : '<p class="lead">Nessuno.</p>') + '</div></div>';
+}
+
+function counts() {
+  const all = DATA[ME] || [];
+  const out = all.filter((p) => rank(ME, p.n) === 2).length;
+  const maybe = all.filter((p) => rank(ME, p.n) === 1).length;
+  return { ok: all.length - out - maybe, maybe: maybe, out: out };
+}
+
+function renderHero() {
+  const app = document.body.dataset.mode === "app";
+  if (!app) {
+    $("h-eye").textContent = "Per la tua lega Leghe FC";
+    $("h-title").textContent = "Fanta Consigli";
+    $("h-sub").textContent = "Formazione e scambi consigliati dalle IA gratuite, partendo dalle rose della tua lega.";
+    $("hstats").innerHTML = ""; $("h-gd").innerHTML = "";
+    return;
+  }
+  $("h-eye").textContent = LEAGUE || "La tua lega";
+  $("h-gd").innerHTML = GIORNATA ? '<span>Giornata Serie A</span><b>' + GIORNATA + '</b>' : "";
+  $("h-title").textContent = ME;
+  $("h-sub").textContent = PROFILE && PROFILE.updatedAt ? "Rose caricate il " + fmt(PROFILE.updatedAt) : "";
+  const c = counts();
+  $("hstats").innerHTML = '<div><b>' + c.ok + '</b><span>Sani</span></div>' +
+    '<div class="w"><b>' + c.maybe + '</b><span>In dubbio</span></div><div class="x"><b>' + c.out + '</b><span>Assenti</span></div>';
+}
+
+function renderHome() {
+  const best = bestMod(); const pk = pickXI(best);
+  const lines = ["P", "D", "C", "A"].map((r) => '<div class="stat"><span class="muted">' + ROLES[r] + '</span><b>' + (pk.xi[r].map((p) => p.n).join(", ") || "-") + '</b></div>').join("");
+  const flagged = (DATA[ME] || []).filter((p) => rank(ME, p.n) > 0).sort((a, b) => b.c - a.c).slice(0, 3);
+  const noStatus = !hasStatus();
+  $("home").innerHTML = strengthCard() + aiHomeCard() +
+    '<div class="card"><h3>Formazione base</h3><p class="muted">' + best + ' con prezzo e disponibilità, senza statistiche.</p>' + lines +
+    '<button class="btn" data-go="formazione">Apri il campo</button></div>' +
+    moveCard() +
+    '<div class="card"><h3>Da tenere d\'occhio</h3>' +
+    (flagged.length ? '<div class="rows">' + flagged.map((p) => rowOf(ME, p)).join("") + '</div>'
+      : '<p class="muted">' + (noStatus ? "Gli infortuni non sono ancora stati cercati: vai in Analisi e cerca le statistiche." : "Nessuno dei tuoi giocatori ha segnalazioni.") + '</p>') +
+    '<button class="btn ghost" data-go="lega">Apri la lega</button></div>' +
+    '<div class="card"><h3>Partite della giornata</h3>' + (CAL.length
+      ? '<div class="tablewrap"><table><tr><th>Giorno</th><th>Ora</th><th>Partita</th></tr>' + CAL.map((x) => '<tr><td>' + esc(x[0]) + '</td><td>' + esc(x[1]) + '</td><td>' + esc(x[2]) + '</td></tr>').join("") + '</table></div>'
+      : '<p class="muted">Calendario non ancora cercato. Lo trova Gemini quando cerchi le statistiche, in Analisi.</p>') + '</div>';
+}
+
+/* ===== scambi ===== */
+function ideas(role) {
+  const mine = (DATA[ME] || []).filter((p) => p.r === role);
+  const ordered = mine.slice().sort((a, b) => rank(ME, a.n) - rank(ME, b.n) || b.c - a.c);
+  const need = needFor()[role];
+  const starters = ordered.filter((p) => rank(ME, p.n) < 2).slice(0, need);
+  const weakest = starters[starters.length - 1];
+  const spare = mine.filter((p) => starters.indexOf(p) < 0).sort((a, b) => b.c - a.c);
+  const pool = [];
+  TEAMS.filter((t) => t !== ME).forEach((t) => DATA[t].forEach((p) => {
+    if (p.r === role && rank(t, p.n) === 0 && (!weakest || p.c > weakest.c)) { pool.push({ t: t, p: p }); }
+  }));
+  pool.sort((a, b) => b.p.c - a.p.c);
+  const used = {}; const pairs = [];
+  spare.slice(0, 3).forEach((sp) => {
+    let best = null;
+    pool.forEach((x) => {
+      if (used[x.t + x.p.n]) { return; }
+      const d = Math.abs(x.p.c - sp.c);
+      if (!best || d < best.d) { best = { x: x, d: d }; }
+    });
+    if (best && best.d <= Math.max(15, sp.c * 0.5)) { used[best.x.t + best.x.p.n] = true; pairs.push({ give: sp, get: best.x }); }
+  });
+  const needs = [];
+  TEAMS.filter((t) => t !== ME).forEach((t) => {
+    const top = DATA[t].filter((p) => p.r === role).sort((a, b) => b.c - a.c).slice(0, need);
+    const fl = top.filter((p) => rank(t, p.n) > 0);
+    if (fl.length) { needs.push({ t: t, list: fl }); }
+  });
+  return { mine: mine, starters: starters, spare: spare, pool: pool, pairs: pairs, needs: needs, need: need };
+}
+function roleNote(role) {
+  const id = ideas(role);
+  const healthy = id.mine.filter((p) => rank(ME, p.n) === 0).length;
+  if (!id.mine.length) { return "Non hai giocatori in questo reparto."; }
+  if (healthy < id.need) { return "Hai solo " + healthy + " giocatori senza segnalazioni su " + id.need + " titolari: conviene prendere un " + ROLE_ONE[role].toLowerCase() + " sano."; }
+  if (id.spare.length) { return "Hai " + id.spare.length + " riserve (" + id.spare.slice(0, 3).map((p) => p.n).join(", ") + "): sono la tua moneta di scambio."; }
+  return "Non hai riserve in più in questo reparto: cedere un titolare lo indebolirebbe.";
+}
+function moveCard() {
+  let txt = "Scegli il reparto e guarda gli scambi possibili.";
+  const roles = ["D", "C", "A", "P"];
+  for (let i = 0; i < roles.length; i++) {
+    const pr = ideas(roles[i]).pairs[0];
+    if (pr) { txt = ROLE_ONE[roles[i]] + ': offri ' + pr.give.n + ' (' + pr.give.c + ') e chiedi ' + pr.get.p.n + ' (' + pr.get.p.c + ', ' + pr.get.t + '). Stesso ruolo, prezzo simile.'; break; }
+  }
+  return '<div class="card"><h3>Prima mossa di mercato</h3><p>' + txt + '</p><button class="btn ghost" data-go="scambi">Vedi gli scambi per ruolo</button></div>';
+}
+function freeCard(role) {
+  if (!FREE.length) {
+    return '<div class="card"><h3>Svincolati</h3><p class="muted">Non hai ancora caricato l\'elenco degli svincolati.</p><button class="btn ghost" data-go="profilo">Apri il Profilo</button></div>';
+  }
+  const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>';
+  const agg = faAgg(role); const ids = okIds();
+  const aiHtml = agg.length ? agg.map((a) =>
+    '<div class="pair"><div><span class="lab">Lascia</span>' + tileOf(ME, a.leave) + '</div>' + arrow +
+    '<div><span class="lab">Prendi</span>' + tileOf(FREE_KEY, a.take) + '</div></div>' +
+    '<p class="by"><b>' + a.by.length + ' su ' + ids.length + '</b>: ' + a.by.map(esc).join(", ") + '</p>' +
+    (a.why.length ? '<p class="why">' + a.why.map(esc).join(" ") + '</p>' : "")).join("")
+    : (ids.length ? '<p class="muted">Nessuna IA propone svincolati per questo reparto.</p>' : '<p class="muted">Le IA non hanno ancora risposto: qui compariranno gli svincolati consigliati.</p>');
+  const top = FREE.filter((p) => p.r === role && rank(FREE_KEY, p.n) === 0).sort((a, b) => b.c - a.c).slice(0, 5);
+  const hasC = FREE.some((p) => p.c > 0);
+  return '<div class="card"><h3>Svincolati</h3><p class="muted">Per prendere uno svincolato devi lasciare un giocatore dello stesso ruolo.</p>' + aiHtml +
+    '<h4>Disponibili' + (hasC ? ', dal più caro' : '') + '</h4><div class="rows">' +
+    (top.length ? top.map((p) => rowOf(FREE_KEY, p, p.t)).join("") : '<p class="muted">Nessuno svincolato per questo ruolo.</p>') + '</div></div>';
+}
+function renderScambi() {
+  const role = state.tradeRole; const id = ideas(role);
+  const seg = Object.keys(ROLES).map((r) => '<button data-tr="' + r + '" aria-pressed="' + (r === role) + '">' + ROLES[r] + '</button>').join("");
+  const healthy = id.mine.filter((p) => rank(ME, p.n) === 0).length;
+  const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>';
+  const pairsHtml = id.pairs.length ? id.pairs.map((pr) => {
+    const fl = rank(ME, pr.give.n) > 0; const diff = pr.get.p.c - pr.give.c;
+    const why = (fl ? pr.give.n + ' è ' + LABEL_LOW[stOf(ME, pr.give.n).k] + ': prendi un ' + ROLE_ONE[role].toLowerCase() + ' sano.' : pr.give.n + ' è una riserva che non giocheresti.') +
+      ' Prezzo pagato: ' + pr.give.c + ' contro ' + pr.get.p.c + (diff === 0 ? ', alla pari.' : ' (' + (diff > 0 ? '+' : '') + diff + ').');
+    return '<div class="pair"><div><span class="lab">Offri</span>' + tileOf(ME, pr.give.n) + '</div>' + arrow +
+      '<div><span class="lab">Chiedi</span>' + tileOf(pr.get.t, pr.get.p.n) + '</div></div><p class="why">' + why + '</p>';
+  }).join("") : '<p>Nessuno scambio alla pari trovato in questo reparto.</p>';
+  const needHtml = id.needs.length
+    ? id.needs.map((n) => '<div class="need"><b>' + esc(n.t) + '</b><div class="muted" style="font-size:13px">' +
+        n.list.map((p) => p.n + ' (' + LABEL_LOW[stOf(n.t, p.n).k] + ', ' + p.c + ')').join(", ") + '</div></div>').join("")
+    : '<p class="muted">' + (hasStatus() ? "Nessuna squadra ha titolari fermi in questo reparto." : "Gli infortuni non sono ancora stati cercati (vai in Analisi).") + '</p>';
+  const poolHtml = id.pool.length
+    ? '<div class="rows">' + id.pool.slice(0, 5).map((x) => rowOf(x.t, x.p, x.t)).join("") + '</div>'
+    : '<p class="muted">Nessun giocatore sano migliore dei tuoi titolari.</p>';
+  $("scambi").innerHTML =
+    '<h2>Scambi</h2><p class="lead">Si scambia solo tra giocatori dello stesso ruolo. Scegli il reparto.</p>' +
+    '<div class="seg" role="group" aria-label="Reparto">' + seg + '</div>' +
+    '<div class="card"><h3>' + ROLES[role] + '</h3>' +
+    '<div class="stat"><span class="muted">In rosa</span><b>' + id.mine.length + '</b></div>' +
+    '<div class="stat"><span class="muted">Senza segnalazioni</span><b>' + healthy + '</b></div>' +
+    '<div class="stat"><span class="muted">Titolari nel modulo base (' + bestMod() + ')</span><b>' + id.need + '</b></div>' +
+    '<p>' + roleNote(role) + '</p></div>' +
+    calcCard() +
+    aiTradesCard(role) +
+    '<div class="card"><h3>Idee base</h3><p class="muted">Solo prezzo e infortuni, senza statistiche.</p>' + pairsHtml + '</div>' +
+    freeCard(role) +
+    '<div class="card"><h3>Chi ha bisogno</h3><p class="muted">Squadre con un titolare di questo ruolo fermo o in dubbio: più propense a trattare.</p>' + needHtml + '</div>' +
+    '<div class="card"><h3>Sani da chiedere</h3><p class="muted">Giocatori sani migliori del tuo ultimo titolare, dal più pagato.</p>' + poolHtml + '</div>';
+}
+
+/* ===== lega: infermeria e asta ===== */
+function infermeriaHtml() {
+  const teamSeg = ["Tutte"].concat(TEAMS).map((t) => '<button data-inft="' + t + '" aria-pressed="' + (t === state.infTeam) + '">' + esc(t) + '</button>').join("");
+  const kinds = [["tutti", "Tutti"], ["out", "Assenti"], ["dubbio", "In dubbio"]];
+  const kindSeg = kinds.map((k) => '<button data-infk="' + k[0] + '" aria-pressed="' + (k[0] === state.infKind) + '">' + k[1] + '</button>').join("");
+  let list = [];
+  TEAMS.forEach((t) => DATA[t].forEach((p) => { if (rank(t, p.n) > 0) { list.push({ t: t, p: p, r: rank(t, p.n) }); } }));
+  list = list.filter((x) => state.infTeam === "Tutte" || x.t === state.infTeam)
+    .filter((x) => state.infKind === "tutti" || (state.infKind === "out" ? x.r === 2 : x.r === 1)).sort((a, b) => b.p.c - a.p.c);
+  return '<p class="lead">Assenti e in dubbio in tutta la lega, in ordine di crediti pagati.' + (hasStatus() ? "" : " Per ora nessun dato: cerca le statistiche in Analisi.") + '</p>' +
+    '<div class="seg" role="group" aria-label="Squadra">' + teamSeg + '</div><div class="seg" role="group" aria-label="Tipo">' + kindSeg + '</div>' +
+    '<div class="card"><div class="stat" style="margin-top:0"><span class="muted">Giocatori</span><b>' + list.length + '</b></div>' +
+    '<div class="stat"><span class="muted">Crediti coinvolti</span><b>' + sum(list.map((x) => x.p)) + '</b></div>' +
+    '<div class="rows">' + (list.length ? list.map((x) => rowOf(x.t, x.p, x.t)).join("") : '<p class="lead">Nessun giocatore con questi filtri.</p>') + '</div></div>';
+}
+function teamStats(team) {
+  const pl = DATA[team]; const byRole = {};
+  Object.keys(ROLES).forEach((r) => { byRole[r] = sum(pl.filter((p) => p.r === r)); });
+  const out = pl.filter((p) => rank(team, p.n) === 2); const maybe = pl.filter((p) => rank(team, p.n) === 1);
+  return { total: sum(pl), byRole: byRole, outSum: sum(out), maybeSum: sum(maybe) };
+}
+function astaHtml() {
+  const stats = {}; TEAMS.forEach((t) => { stats[t] = teamStats(t); });
+  const share = (t) => stats[t].total ? Math.round(100 * stats[t].byRole.A / stats[t].total) : 0;
+  const others = TEAMS.filter((t) => t !== ME).map(share);
+  const colors = { P: "var(--r-p)", D: "var(--r-d)", C: "var(--r-c)", A: "var(--r-a)" };
+  const everyone = []; TEAMS.forEach((t) => DATA[t].forEach((p) => everyone.push({ t: t, p: p })));
+  everyone.sort((a, b) => b.p.c - a.p.c);
+  const top = everyone.slice(0, 10); const maxc = top.length ? (top[0].p.c || 1) : 1;
+  const topRows = top.map((x) => '<div class="rk"><div class="top"><span><b>' + x.p.n + '</b> <span class="muted">' + esc(x.t) + '</span></span><b>' + x.p.c + '</b></div>' +
+    '<div class="meter"><span style="width:' + Math.round(100 * x.p.c / maxc) + '%"></span></div></div>').join("");
+  const cards = TEAMS.map((t) => {
+    const s = stats[t];
+    const bar = Object.keys(ROLES).map((r) => '<span style="flex-grow:' + s.byRole[r] + ';background:' + colors[r] + '"></span>').join("");
+    const legend = Object.keys(ROLES).map((r) => '<span><i style="background:' + colors[r] + '"></i>' + ROLES[r] + ' ' + s.byRole[r] + '</span>').join("");
+    const pct = (x) => s.total ? Math.round(100 * x / s.total) : 0;
+    return '<div class="card"><h3>' + esc(t) + '</h3><div class="stat"><span class="muted">Crediti spesi</span><b>' + s.total + '</b></div>' +
+      '<div class="bar" role="img" aria-label="Spesa per reparto">' + bar + '</div><div class="legend">' + legend + '</div>' +
+      '<div class="stat"><span class="muted">Su giocatori assenti</span><b>' + s.outSum + ' (' + pct(s.outSum) + '%)</b></div>' +
+      '<div class="stat"><span class="muted">Su giocatori in dubbio</span><b>' + s.maybeSum + ' (' + pct(s.maybeSum) + '%)</b></div></div>';
+  }).join("");
+  return '<p class="lead">Hai investito in attacco il ' + share(ME) + '% dei tuoi crediti' +
+    (others.length ? ', gli altri tra il ' + Math.min.apply(null, others) + '% e il ' + Math.max.apply(null, others) + '%.' : '.') + '</p>' +
+    '<div class="card"><h3>I dieci più pagati</h3><div style="margin-top:6px">' + topRows + '</div></div>' + cards;
+}
+function renderLega() {
+  const seg = '<div class="seg" role="group" aria-label="Vista"><button data-lv="inf" aria-pressed="' + (state.legaView === "inf") + '">Infermeria</button>' +
+    '<button data-lv="asta" aria-pressed="' + (state.legaView === "asta") + '">Asta</button></div>';
+  $("lega").innerHTML = '<h2>Lega</h2>' + seg + (state.legaView === "inf" ? infermeriaHtml() : astaHtml());
+}
+
+/* ===== rose e immagini ===== */
+function renderRose() {
+  const names = TEAMS.concat(FREE.length ? [FREE_KEY] : []);
+  if (names.indexOf(state.roseTeam) < 0) { state.roseTeam = ME; }
+  const teamSeg = names.map((t) => '<button data-rt="' + t + '" aria-pressed="' + (t === state.roseTeam) + '">' + esc(t) + '</button>').join("");
+  const all0 = poolOf(state.roseTeam); const cnt = (r) => all0.filter((p) => p.r === r).length;
+  const roleSeg = [["T", "Tutti " + all0.length], ["P", "P " + cnt("P")], ["D", "D " + cnt("D")], ["C", "C " + cnt("C")], ["A", "A " + cnt("A")]]
+    .map((r) => '<button data-rr="' + r[0] + '" aria-pressed="' + (r[0] === state.roseRole) + '">' + r[1] + '</button>').join("");
+  let pl = all0.filter((p) => state.roseRole === "T" || p.r === state.roseRole);
+  const cut = pl.length > 120; if (cut) { pl = pl.slice(0, 120); }
+  const nimg = Object.keys(IMGS).length;
+  $("rose").innerHTML =
+    '<h2>Rose</h2><p class="lead">I numeri sono i crediti pagati all\'asta. Il pallino segna assenti e in dubbio.</p>' +
+    '<div class="seg" role="group" aria-label="Squadra">' + teamSeg + '</div><div class="seg" role="group" aria-label="Ruolo">' + roleSeg + '</div>' +
+    '<div class="tiles">' + pl.map((p) => {
+      const s = stOf(state.roseTeam, p.n);
+      return '<div class="tile">' + shirtDot(state.roseTeam, p, 56) + '<div class="nm">' + p.n + '</div><div class="meta">' + ROLE_ONE[p.r] + (p.t ? ' &middot; ' + esc(p.t) : "") + '</div>' +
+        (p.c ? '<div class="cost">' + p.c + '</div>' : "") + (s ? badge(s) : "") + '</div>';
+    }).join("") + '</div>' + (cut ? '<p class="lead">Mostrati i primi 120: usa il filtro per ruolo.</p>' : "") +
+    '<div class="card"><h3>Immagini dei giocatori</h3><p class="muted">Facoltative. Carica più immagini insieme: il nome del file deve contenere il nome del giocatore (per esempio <b>bastoni.jpg</b>). Restano solo su questo dispositivo e non le vede nessuno. Carica solo immagini che hai il diritto di usare.</p>' +
+    '<div class="btnrow"><label class="btn" for="f-img">Scegli le immagini</label>' + (nimg ? '<button class="btn ghost" data-act="imgclear">Rimuovi tutte (' + nimg + ')</button>' : "") + '</div>' +
+    '<input id="f-img" class="vh" type="file" accept="image/*" multiple>' +
+    (state.msg ? '<p class="by">' + esc(state.msg) + '</p>' : "") + '</div>';
+}
+function matchImgPlayer(base) {
+  const fn = norm(base); if (!fn) { return null; }
+  const all = []; TEAMS.forEach((t) => DATA[t].forEach((p) => all.push(p))); FREE.forEach((p) => all.push(p));
+  let ex = all.filter((p) => norm(p.n) === fn);
+  if (ex.length) { return ex[0]; }
+  const cont = all.filter((p) => norm(p.n).length >= 4 && fn.indexOf(norm(p.n)) >= 0).sort((a, b) => norm(b.n).length - norm(a.n).length);
+  if (cont.length && (cont.length === 1 || norm(cont[0].n).length > norm(cont[1].n).length)) { return cont[0]; }
+  if (fn.length >= 5) { const pre = all.filter((p) => norm(p.n).indexOf(fn) === 0); if (pre.length === 1) { return pre[0]; } }
+  return null;
+}
+function resizeImage(file) {
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file); const im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, 160 / Math.max(im.width, im.height));
+      const w = Math.max(1, Math.round(im.width * k)), h = Math.max(1, Math.round(im.height * k));
+      const c = document.createElement("canvas"); c.width = w; c.height = h; c.getContext("2d").drawImage(im, 0, 0, w, h);
+      URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", 0.82));
+    };
+    im.onerror = () => { URL.revokeObjectURL(url); rej(new Error("immagine non leggibile")); };
+    im.src = url;
+  });
+}
+async function addImages(files) {
+  let ok = 0; const bad = [];
+  for (let i = 0; i < files.length; i++) {
+    const f = files[i]; const base = f.name.replace(/\.[^.]+$/, "");
+    const p = matchImgPlayer(base);
+    if (!p) { bad.push(f.name); continue; }
+    try { IMGS[norm(p.n)] = await resizeImage(f); ok++; } catch (e) { bad.push(f.name); }
+  }
+  await saveImgs();
+  state.msg = ok + " immagini associate." + (bad.length ? " Non riconosciute: " + bad.slice(0, 6).join(", ") + (bad.length > 6 ? "..." : "") + "." : "");
+  renderAll();
+}
+
+/* ===== profilo ===== */
+function privacyHtml() {
+  return '<details><summary>Informativa sui dati</summary><ul>' +
+    '<li>Salviamo la tua email e, nel tuo account, le rose e gli svincolati che carichi. Stanno su Firebase (Google) e le regole del database li rendono leggibili solo da te. Chi gestisce il sito può comunque vederli dalla console del database.</li>' +
+    '<li>Le chiavi delle IA, le immagini, le statistiche cercate e i consigli restano solo su questo dispositivo.</li>' +
+    '<li>Quando chiedi i consigli, nomi e crediti dei giocatori vanno direttamente dal tuo browser ai servizi IA che hai scelto, con le loro regole.</li>' +
+    '<li>Non vendiamo né cediamo i dati. Puoi cancellare dati e account quando vuoi da questa pagina.</li>' +
+    '<li>Per qualsiasi richiesta sui tuoi dati rivolgiti a chi ti ha dato il link del sito.</li></ul></details>';
+}
+function renderProfilo() {
+  const dis = state.busy ? " disabled" : "";
+  const opts = TEAMS.map((t) => '<option value="' + esc(t) + '"' + (t === ME ? " selected" : "") + '>' + esc(t) + '</option>').join("");
+  $("profilo").innerHTML =
+    '<h2>Profilo</h2>' +
+    '<div class="card"><h3>Account</h3><div class="stat"><span class="muted">Email</span><b>' + esc(USER ? USER.email : "") + '</b></div>' +
+    '<div class="stat"><span class="muted">Lega</span><b>' + esc(LEAGUE || "-") + '</b></div>' +
+    '<div class="stat"><span class="muted">Squadre caricate</span><b>' + TEAMS.length + '</b></div>' +
+    '<div class="stat"><span class="muted">Svincolati caricati</span><b>' + FREE.length + '</b></div>' +
+    '<button class="btn ghost"' + dis + ' data-act="logout">Esci</button></div>' +
+    '<div class="card"><h3>La tua squadra</h3><div class="fld"><label for="p-me">Squadra che alleni</label><select id="p-me">' + opts + '</select></div>' +
+    '<button class="btn"' + dis + ' data-act="setme">Cambia squadra</button></div>' +
+    '<div class="card"><h3>Aggiorna i dati</h3><p class="muted">Dopo ogni asta o scambio ricarica i file: sostituiscono quelli vecchi.</p>' +
+    '<div class="btnrow"><button class="btn"' + dis + ' data-act="reloadrose">Ricarica le rose</button><button class="btn"' + dis + ' data-act="reloadfree">Ricarica gli svincolati</button></div>' +
+    (state.msg ? '<p class="by">' + esc(state.msg) + '</p>' : "") + '</div>' +
+    '<div class="card"><h3>Dati e privacy</h3>' + privacyHtml() +
+    '<div class="btnrow"><button class="btn ghost"' + dis + ' data-act="wipelocal">Cancella i dati di questo dispositivo</button></div>' +
+    '<h4>Cancellazione definitiva</h4><p class="muted">Elimina le rose, gli svincolati e l\'account. Non si può annullare.</p>' +
+    '<button class="btn danger"' + dis + ' data-act="delacct">Cancella i miei dati e l\'account</button>' +
+    (state.delAsk ? '<p class="err">Sei sicuro? Tocca di nuovo per confermare.</p>' : "") + '</div>';
+}
+
+/* ===== navigazione ===== */
+const NAV = [
+  ["home", "Home", "M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"],
+  ["formazione", "Formazione", "M3 4h18v16H3zM3 12h18M9 4v4h6V4M9 20v-4h6v4"],
+  ["scambi", "Scambi", "M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"],
+  ["analisi", "Analisi", "M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"],
+  ["rose", "Rose", "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 5.5a3 3 0 0 1 0 5.5M18 14.5c2 .7 3 2.7 3 5.5"],
+  ["lega", "Lega", "M12 4v16M4 12h16"],
+  ["profilo", "Profilo", "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"]
+];
+function buildNav() {
+  $("nav").innerHTML = NAV.map((n) => '<button data-go="' + n[0] + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + n[2] + '"/></svg>' + n[1] + '</button>').join("");
+}
+function route() {
+  const h = location.hash.slice(1);
+  const t = NAV.some((n) => n[0] === h) ? h : "home";
+  NAV.forEach((n) => { $(n[0]).hidden = n[0] !== t; });
+  document.querySelectorAll("#nav button").forEach((b) => {
+    if (b.dataset.go === t) { b.setAttribute("aria-current", "page"); } else { b.removeAttribute("aria-current"); }
+  });
+}
+function go(t) {
+  if (location.hash.slice(1) === t) { route(); } else { location.hash = t; }
+  window.scrollTo(0, 0);
+}
+function renderAll() {
+  if (document.body.dataset.mode !== "app") { return; }
+  renderHero(); renderHome(); renderFormazione(); renderScambi(); renderAnalisi(); renderRose(); renderLega(); renderProfilo(); route();
+}
+
+/* ===== motore IA ===== */
+const GEM = "https://generativelanguage.googleapis.com/v1beta/";
+const PROV = {
+  gemini: { name: "Gemini", hint: "aistudio.google.com, voce Get API key" },
+  groq: { name: "Groq", hint: "console.groq.com, voce API Keys" },
+  openrouter: { name: "OpenRouter", hint: "openrouter.ai, voce Keys (modelli :free)" },
+  deepseek: { name: "DeepSeek", hint: "platform.deepseek.com, voce API keys. Il browser potrebbe bloccarlo: in quel caso usa OpenRouter" }
+};
+const MAN = { chatgpt: "ChatGPT", claude: "Claude", altro: "Altra IA" };
+const FORMAT = '{"modulo":"3-4-3","titolari":{"P":["nome"],"D":["nome"],"C":["nome"],"A":["nome"]},"panchina":["nome"],"scambi":[{"ruolo":"D","offri":"nome","chiedi":"nome","squadra":"squadra","motivo":"massimo 25 parole"}],"svincolati":[{"ruolo":"D","prendi":"nome dello svincolato","lascia":"nome di un mio giocatore","motivo":"massimo 25 parole"}],"note":"massimo 40 parole"}';
+let autoModel = {};
+const pname = (id) => PROV[id] ? PROV[id].name : (MAN[id.replace("man:", "")] || id);
+const hasStatus = () => !!(store.dossier && store.dossier.stati);
+function log(m) {
+  state.log.push(new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) + " " + m);
+  if (state.log.length > 40) { state.log.shift(); }
+  renderAnalisi();
+}
+const okIds = () => Object.keys(store.results).filter((id) => store.results[id].ok);
+
+async function jfetch(url, opts, ms) {
+  const ctl = new AbortController();
+  const to = setTimeout(() => ctl.abort(), ms || 90000);
+  try {
+    const r = await fetch(url, Object.assign({ signal: ctl.signal }, opts || {}));
+    const txt = await r.text();
+    let j = null;
+    try { j = JSON.parse(txt); } catch (e) { j = null; }
+    if (!r.ok) {
+      let msg = txt.slice(0, 200);
+      if (j && j.error) { msg = typeof j.error === "string" ? j.error : (j.error.message || JSON.stringify(j.error).slice(0, 200)); }
+      throw new Error("HTTP " + r.status + ": " + msg);
+    }
+    if (!j) { throw new Error("Risposta non valida dal servizio"); }
+    return j;
+  } catch (e) {
+    if (e.name === "AbortError") { throw new Error("Tempo scaduto"); }
+    if (e instanceof TypeError) { throw new Error("Connessione bloccata dal browser (CORS) o assente"); }
+    throw e;
+  } finally { clearTimeout(to); }
+}
+
+const vnum = (n) => { const m = n.match(/(\d+(?:\.\d+)?)/); return m ? parseFloat(m[1]) : 0; };
+async function pickGemini(key) {
+  if (store.models.gemini) { return store.models.gemini; }
+  if (autoModel.gemini) { return autoModel.gemini; }
+  const j = await jfetch(GEM + "models?pageSize=200", { headers: { "x-goog-api-key": key } }, 30000);
+  const all = (j.models || []).filter((m) => (m.supportedGenerationMethods || []).indexOf("generateContent") >= 0)
+    .map((m) => m.name.replace("models/", ""))
+    .filter((n) => /flash/.test(n) && !/(lite|image|tts|live|audio|8b|exp|thinking|robotics|computer)/.test(n));
+  if (!all.length) { throw new Error("Nessun modello Gemini disponibile con questa chiave"); }
+  const stable = all.filter((n) => !/preview/.test(n));
+  const pool = (stable.length ? stable : all).sort((a, b) => vnum(b) - vnum(a));
+  autoModel.gemini = pool[0];
+  return pool[0];
+}
+async function pickGroq(key) {
+  if (store.models.groq) { return store.models.groq; }
+  if (autoModel.groq) { return autoModel.groq; }
+  const j = await jfetch("https://api.groq.com/openai/v1/models", { headers: { Authorization: "Bearer " + key } }, 30000);
+  const ids = (j.data || []).map((m) => m.id).filter((id) => !/(whisper|guard|tts|orpheus|playai|safeguard|embed|vision)/i.test(id));
+  const prefs = [/gpt-oss-120b/i, /llama-3\.3-70b/i, /llama-4/i, /70b/i, /qwen/i];
+  let c = null;
+  for (let i = 0; i < prefs.length && !c; i++) { c = ids.find((id) => prefs[i].test(id)); }
+  c = c || ids[0];
+  if (!c) { throw new Error("Nessun modello Groq disponibile"); }
+  autoModel.groq = c;
+  return c;
+}
+async function pickOpenRouter() {
+  if (store.models.openrouter) { return store.models.openrouter; }
+  if (autoModel.openrouter) { return autoModel.openrouter; }
+  const j = await jfetch("https://openrouter.ai/api/v1/models", {}, 30000);
+  const free = (j.data || []).filter((m) => m.pricing && Number(m.pricing.prompt) === 0 && Number(m.pricing.completion) === 0 && !/(vision|image|audio|embed)/i.test(m.id));
+  if (!free.length) { throw new Error("Nessun modello gratuito su OpenRouter in questo momento"); }
+  const prefs = [/deepseek/i, /gpt-oss/i, /llama.*70b/i, /qwen/i];
+  let c = null;
+  for (let i = 0; i < prefs.length && !c; i++) { c = free.find((m) => prefs[i].test(m.id)); }
+  if (!c) { c = free.slice().sort((a, b) => (b.context_length || 0) - (a.context_length || 0))[0]; }
+  autoModel.openrouter = c.id;
+  return c.id;
+}
+async function gemini(key, prompt, search, asJson) {
+  const model = await pickGemini(key);
+  const body = { contents: [{ parts: [{ text: prompt }] }] };
+  if (search) { body.tools = [{ google_search: {} }]; }
+  else if (asJson) { body.generationConfig = { responseMimeType: "application/json" }; }
+  const j = await jfetch(GEM + "models/" + model + ":generateContent",
+    { method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key }, body: JSON.stringify(body) }, 120000);
+  const c = j.candidates && j.candidates[0];
+  if (!c || !c.content || !c.content.parts) { throw new Error("Risposta vuota" + (j.promptFeedback ? " (bloccata dal filtro)" : "")); }
+  return c.content.parts.map((p) => p.text || "").join("");
+}
+async function chat(base, key, model, prompt) {
+  const j = await jfetch(base + "/chat/completions", {
+    method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
+    body: JSON.stringify({ model: model, messages: [{ role: "user", content: prompt }], temperature: 0.3 })
+  }, 120000);
+  const m = j.choices && j.choices[0] && j.choices[0].message;
+  if (!m || !m.content) { throw new Error("Risposta vuota"); }
+  return m.content;
+}
+async function callProvider(id, prompt) {
+  const key = store.keys[id];
+  if (!key) { throw new Error("Chiave mancante"); }
+  if (id === "gemini") { return gemini(key, prompt, false, true); }
+  if (id === "groq") { return chat("https://api.groq.com/openai/v1", key, await pickGroq(key), prompt); }
+  if (id === "openrouter") { return chat("https://openrouter.ai/api/v1", key, await pickOpenRouter(), prompt); }
+  if (id === "deepseek") { return chat("https://api.deepseek.com", key, store.models.deepseek || "deepseek-chat", prompt); }
+  throw new Error("Servizio sconosciuto");
+}
+
+/* ----- lettura delle risposte ----- */
+function parseJSONText(text) {
+  const tx = String(text).replace(/<think>[\s\S]*?<\/think>/g, "");
+  const a = tx.indexOf("{"); const b = tx.lastIndexOf("}");
+  if (a < 0 || b < a) { throw new Error("Nella risposta non c'è nessun JSON"); }
+  try { return JSON.parse(tx.slice(a, b + 1)); } catch (e) { throw new Error("La risposta non è un JSON valido"); }
+}
+function findInList(list, name) {
+  const n = norm(name); if (!n) { return null; }
+  let m = list.filter((p) => norm(p.n) === n);
+  if (m.length === 1) { return m[0]; }
+  m = list.filter((p) => norm(p.n).indexOf(n) === 0 || n.indexOf(norm(p.n)) === 0);
+  return m.length === 1 ? m[0] : null;
+}
+const findIn = (team, name) => findInList(poolOf(team), name);
+function findAnywhere(name) {
+  let p = findInList(DATA[ME] || [], name);
+  for (let i = 0; i < TEAMS.length && !p; i++) { p = findInList(DATA[TEAMS[i]], name); }
+  return p || findInList(FREE, name);
+}
+
+/* ----- ricerca: calendario, statistiche e infortuni (Gemini con ricerca Google) ----- */
+const calText = () => CAL.map((c) => c[0] + " " + c[1] + " " + c[2]).join("; ");
+function statusLine(t, p) { const s = stOf(t, p.n); return s ? p.n + ": " + LABEL_LOW[s.k] + " (" + s.t + ")" : null; }
+function playersForDossier() {
+  const out = (DATA[ME] || []).map((p) => ({ t: ME, p: p }));
+  const others = [];
+  TEAMS.filter((t) => t !== ME).forEach((t) => DATA[t].forEach((p) => others.push({ t: t, p: p })));
+  others.sort((a, b) => b.p.c - a.p.c);
+  others.slice(0, 40).forEach((x) => out.push(x));
+  FREE.filter((p) => p.c > 0).sort((a, b) => b.c - a.c).slice(0, 10).forEach((p) => out.push({ t: FREE_KEY, p: p }));
+  return out;
+}
+async function fetchCalendar(key) {
+  const prompt = "Oggi è " + todayIt() + ". Cerca sul web il calendario della prossima giornata di Serie A (stagione in corso): numero della giornata e tutte le partite con giorno e orario.\n" +
+    'Rispondi SOLO con JSON valido in questo formato: {"giornata":13,"partite":[["Ven 27/11","20:45","Venezia-Bologna"]]}. Non inventare: se non trovi il calendario rispondi {"giornata":null,"partite":[]}.';
+  const o = parseJSONText(await gemini(key, prompt, true, false));
+  const rows = (Array.isArray(o.partite) ? o.partite : []).filter((r) => Array.isArray(r) && r.length >= 3).slice(0, 12)
+    .map((r) => [clean(r[0]), clean(r[1]), clean(r[2])]);
+  store.cal = { at: Date.now(), n: Number(o.giornata) > 0 && Number(o.giornata) < 60 ? Number(o.giornata) : null, rows: rows };
+  applyLocalData();
+  log(rows.length ? "Calendario trovato: " + rows.length + " partite" : "Calendario non trovato");
+}
+async function buildDossier() {
+  const key = store.keys.gemini;
+  if (!key) { throw new Error("Per cercare le statistiche serve la chiave Gemini"); }
+  try { log("Ricerca del calendario..."); await fetchCalendar(key); }
+  catch (e) { log("Calendario non disponibile (" + e.message + ")"); }
+  const all = playersForDossier(); const size = 22; const chunks = [];
+  for (let i = 0; i < all.length; i += size) { chunks.push(all.slice(i, i + size)); }
+  const lines = []; const st = {}; let web = true; let gotStati = false;
+  for (let i = 0; i < chunks.length; i++) {
+    log("Ricerca statistiche " + (i + 1) + " di " + chunks.length + "...");
+    const list = chunks[i].map((x) => x.p.n + " (" + x.p.r + ")").join("; ");
+    const prompt = "Oggi è " + todayIt() + ". Cerca sul web le statistiche della Serie A in corso per questi calciatori del fantacalcio: " + list + ".\n" +
+      "Per ogni calciatore scrivi UNA riga nel formato: Nome | squadra di Serie A | ultime 5 giornate (presenze, minuti, gol, assist, fantamedia o media voto se la trovi) | stato (sano, infortunato o squalificato) | prossimi 3 avversari.\n" +
+      "Se un dato non lo trovi scrivi n.d.: non inventare mai numeri. Massimo 30 parole per riga, nessuna introduzione.\n" +
+      'Dopo le righe scrivi un\'ultima riga che inizia con STATI_JSON: seguita da un JSON con SOLO i calciatori assenti (infortunati o squalificati) o in dubbio, nel formato {"Nome":["out" oppure "dubbio","motivo breve"]}. Se non ce ne sono scrivi {}. Usa i nomi esattamente come nell\'elenco.' +
+      (CAL.length ? "\nCalendario della prossima giornata: " + calText() : "");
+    let txt;
+    try { txt = await gemini(key, prompt, web, false); }
+    catch (e) {
+      if (!web) { throw e; }
+      web = false; log("Ricerca web non disponibile (" + e.message + "): provo senza");
+      txt = await gemini(key, prompt, false, false);
+    }
+    const ix = txt.indexOf("STATI_JSON:");
+    lines.push((ix >= 0 ? txt.slice(0, ix) : txt).trim());
+    if (ix >= 0 && web) {
+      try {
+        const o = parseJSONText(txt.slice(ix + 11)); gotStati = true;
+        Object.keys(o).forEach((nm) => {
+          const p = findAnywhere(nm); const v = o[nm];
+          if (p && Array.isArray(v)) { st[norm(p.n)] = [String(v[0]).toLowerCase() === "out" ? "out" : "dubbio", clean(v[1] || "").slice(0, 80)]; }
+        });
+      } catch (e) { log("Infortuni del gruppo " + (i + 1) + " non letti"); }
+    }
+    if (i < chunks.length - 1) { await sleep(4000); }
+  }
+  if (gotStati) { store.status = st; }
+  store.dossier = { at: Date.now(), web: web, text: lines.join("\n"), stati: gotStati || (store.dossier && store.dossier.stati) || false };
+  applyLocalData(); save();
+  log("Statistiche pronte" + (web ? "" : " (senza ricerca web, meno affidabili)") + (gotStati ? ", infortuni aggiornati" : ""));
+}
+
+/* ----- prompt per i consigli ----- */
+function rosterText() {
+  return TEAMS.map((t) => t + (t === ME ? " (SQUADRA DELL'UTENTE)" : "") + ": " +
+    Object.keys(ROLES).map((r) => r + ": " + DATA[t].filter((p) => p.r === r).map((p) => p.n + " " + p.c).join(", ")).join(" | ")).join("\n");
+}
+function allStatusText() {
+  const out = [];
+  TEAMS.concat([FREE_KEY]).forEach((t) => poolOf(t).forEach((p) => { const l = statusLine(t, p); if (l) { out.push(l); } }));
+  return out.join("; ");
+}
+function freeText() {
+  return FREE.slice().sort((a, b) => b.c - a.c).slice(0, 250).map((p) => p.n + " (" + p.r + (p.c ? " " + p.c : "") + ")").join(", ");
+}
+function advicePrompt(manual) {
+  const d = store.dossier;
+  return "Sei un esperto di fantacalcio Serie A. Oggi è " + todayIt() + ". L'utente allena la squadra " + ME + ".\n\n" +
+    "ROSE (nome e crediti pagati all'asta):\n" + rosterText() + "\n\n" +
+    (FREE.length ? "SVINCOLATI DISPONIBILI (nome, ruolo, eventuale quotazione): " + freeText() + "\n\n" : "") +
+    (CAL.length ? "CALENDARIO PROSSIMA GIORNATA: " + calText() + "\n\n" : "") +
+    (hasStatus() ? "INFORTUNI E DUBBI CERCATI IL " + fmt(store.dossier.at) + ": " + (allStatusText() || "nessuno segnalato") + "\n\n" : "INFORTUNI: non verificati, controllali tu.\n\n") +
+    "STATISTICHE CERCATE (possono contenere errori o n.d.):\n" + (d ? d.text.slice(0, 9000) : "non disponibili") + "\n\n" +
+    (manual ? "Se hai accesso al web, verifica e integra le statistiche, gli infortuni e i prossimi avversari.\n\n" : "") +
+    "REGOLE:\n" +
+    "- Scegli la formazione per la prossima giornata. Moduli consentiti: " + MODULES.join(", ") + ". Un portiere, il resto coerente col modulo, in totale 11 titolari.\n" +
+    "- Non schierare giocatori assenti. Usa i nomi ESATTI scritti nelle rose.\n" +
+    "- Scambi: massimo 4, uno contro uno, SOLO tra giocatori dello stesso ruolo (portiere con portiere, difensore con difensore e così via). Offri un giocatore della mia rosa e chiedi uno di un'altra squadra.\n" +
+    (FREE.length ? "- Svincolati: massimo 3 sostituzioni, prendi uno svincolato dell'elenco e lascia un giocatore della mia rosa dello STESSO ruolo. Se non ce ne sono di convenienti, lascia la lista vuota.\n" : "- Lascia vuota la lista svincolati.\n") +
+    "- Criteri: forma delle ultime 5 giornate, continuità di rendimento, minuti giocati, difficoltà dei prossimi avversari, infortuni. Per ogni scambio spiega con i dati perché chi chiedi continuerà a rendere bene.\n\n" +
+    "Rispondi SOLO con JSON valido, senza testo fuori dal JSON, in questo formato:\n" + FORMAT;
+}
+
+function validateAI(o) {
+  const w = []; const xi = { P: [], D: [], C: [], A: [] }; const tt = o.titolari || {};
+  Object.keys(xi).forEach((r) => (Array.isArray(tt[r]) ? tt[r] : []).forEach((nm) => {
+    const p = findIn(ME, nm);
+    if (!p) { w.push("Titolare non trovato in rosa: " + nm); return; }
+    if (p.r !== r) { w.push(p.n + " è " + ROLE_ONE[p.r].toLowerCase() + ", non " + ROLE_ONE[r].toLowerCase() + ": spostato nel ruolo giusto"); }
+    if (rank(ME, p.n) === 2) { w.push(p.n + " è assente: tolto dai titolari"); return; }
+    if (xi[p.r].indexOf(p.n) < 0) { xi[p.r].push(p.n); }
+  }));
+  const total = xi.P.length + xi.D.length + xi.C.length + xi.A.length;
+  if (total !== 11) { w.push("I titolari validi sono " + total + " invece di 11"); }
+  const derived = xi.D.length + "-" + xi.C.length + "-" + xi.A.length;
+  const modulo = MODULES.indexOf(o.modulo) >= 0 ? o.modulo : (MODULES.indexOf(derived) >= 0 ? derived : null);
+  const bench = [];
+  (Array.isArray(o.panchina) ? o.panchina : []).forEach((nm) => { const p = findIn(ME, nm); if (p && bench.indexOf(p.n) < 0) { bench.push(p.n); } });
+  const sc = [];
+  (Array.isArray(o.scambi) ? o.scambi : []).slice(0, 6).forEach((s) => {
+    const give = findIn(ME, s.offri);
+    const hint = TEAMS.filter((t) => t !== ME && norm(t) === norm(s.squadra));
+    const teams = hint.length ? hint : TEAMS.filter((t) => t !== ME);
+    let getT = null; let getP = null;
+    for (let i = 0; i < teams.length && !getP; i++) { const p = findIn(teams[i], s.chiedi); if (p) { getT = teams[i]; getP = p; } }
+    const why = [];
+    if (!give) { why.push("giocatore offerto non trovato nella tua rosa (" + s.offri + ")"); }
+    if (!getP) { why.push("giocatore richiesto non trovato (" + s.chiedi + ")"); }
+    if (give && getP && give.r !== getP.r) { why.push("ruoli diversi: " + give.n + " e " + getP.n); }
+    sc.push({ role: give ? give.r : null, give: give ? give.n : String(s.offri), get: getP ? getP.n : String(s.chiedi),
+      team: getT || String(s.squadra || ""), why: String(s.motivo || ""), valid: why.length === 0 });
+    if (why.length) { w.push("Scambio scartato: " + why.join("; ")); }
+  });
+  const sv = [];
+  (Array.isArray(o.svincolati) ? o.svincolati : []).slice(0, 5).forEach((s) => {
+    const take = findInList(FREE, s.prendi); const leave = findIn(ME, s.lascia); const why = [];
+    if (!take) { why.push("svincolato non trovato (" + s.prendi + ")"); }
+    if (!leave) { why.push("giocatore da lasciare non trovato (" + s.lascia + ")"); }
+    if (take && leave && take.r !== leave.r) { why.push("ruoli diversi: " + take.n + " e " + leave.n); }
+    sv.push({ role: leave ? leave.r : null, take: take ? take.n : String(s.prendi), leave: leave ? leave.n : String(s.lascia), why: String(s.motivo || ""), valid: why.length === 0 });
+    if (why.length) { w.push("Svincolato scartato: " + why.join("; ")); }
+  });
+  return { modulo: modulo, xi: xi, bench: bench, scambi: sc, svinc: sv, note: String(o.note || ""), warnings: w };
+}
+async function runAdvice(ids) {
+  const prompt = advicePrompt(false);
+  await Promise.all(ids.map(async (id) => {
+    log(pname(id) + ": richiesta in corso...");
+    try {
+      const data = validateAI(parseJSONText(await callProvider(id, prompt)));
+      store.results[id] = { ok: true, at: Date.now(), data: data };
+      log(pname(id) + ": risposta ricevuta" + (data.warnings.length ? " (" + data.warnings.length + " avvisi)" : ""));
+    } catch (e) {
+      const prev = store.results[id];
+      store.results[id] = prev && prev.ok ? Object.assign({}, prev, { err: e.message }) : { ok: false, at: Date.now(), err: e.message };
+      log(pname(id) + ": errore, " + e.message);
+    }
+  }));
+}
+
+/* ----- maggioranza ----- */
+function consensus() {
+  const ids = okIds(); if (!ids.length) { return null; }
+  const mv = {};
+  ids.forEach((id) => { const m = store.results[id].data.modulo; if (m) { mv[m] = (mv[m] || 0) + 1; } });
+  const mods = Object.keys(mv).sort((a, b) => mv[b] - mv[a]);
+  const mod = mods[0] || "3-4-3"; const need = modNeed(mod); const votes = {};
+  ids.forEach((id) => { const x = store.results[id].data.xi; Object.keys(x).forEach((r) => x[r].forEach((n) => { votes[n] = (votes[n] || 0) + 1; })); });
+  const xi = {};
+  Object.keys(need).forEach((r) => {
+    xi[r] = (DATA[ME] || []).filter((p) => p.r === r && rank(ME, p.n) < 2)
+      .sort((a, b) => (votes[b.n] || 0) - (votes[a.n] || 0) || rank(ME, a.n) - rank(ME, b.n) || b.c - a.c).slice(0, need[r]);
+  });
+  const bv = {}; ids.forEach((id) => store.results[id].data.bench.forEach((n) => { bv[n] = (bv[n] || 0) + 1; }));
+  const inXi = {}; Object.keys(xi).forEach((r) => xi[r].forEach((p) => { inXi[p.n] = true; }));
+  const bench = (DATA[ME] || []).filter((p) => !inXi[p.n] && rank(ME, p.n) < 2)
+    .sort((a, b) => (bv[b.n] || 0) - (bv[a.n] || 0) || (votes[b.n] || 0) - (votes[a.n] || 0) || b.c - a.c).slice(0, 7);
+  return { mod: mod, modVotes: mv[mod] || 0, xi: xi, bench: bench, votes: votes, n: ids.length, note: "", warnings: [] };
+}
+function srcView(src) {
+  if (src === "maj") { return consensus(); }
+  const r = store.results[src]; if (!r || !r.ok) { return null; }
+  const d = r.data; const xi = {};
+  Object.keys(d.xi).forEach((k) => { xi[k] = d.xi[k].map((n) => player(ME, n)).filter(Boolean); });
+  return { mod: d.modulo || "?", xi: xi, bench: d.bench.map((n) => player(ME, n)).filter(Boolean), votes: {}, n: 1, note: d.note, warnings: d.warnings };
+}
+function aggOf(key, role, pick) {
+  const m = {};
+  okIds().forEach((id) => (store.results[id].data[key] || []).forEach((s) => {
+    if (!s.valid || s.role !== role) { return; }
+    const k = pick(s).k;
+    if (!m[k]) { m[k] = Object.assign({ by: [], why: [] }, pick(s).o); }
+    m[k].by.push(pname(id));
+    if (s.why) { m[k].why.push(pname(id) + ": " + s.why); }
+  }));
+  return Object.keys(m).map((k) => m[k]).sort((a, b) => b.by.length - a.by.length);
+}
+const tradeAgg = (role) => aggOf("scambi", role, (s) => ({ k: s.give + ">" + s.get + "@" + s.team, o: { give: s.give, get: s.get, team: s.team } }));
+const faAgg = (role) => aggOf("svinc", role, (s) => ({ k: s.leave + ">" + s.take, o: { leave: s.leave, take: s.take } }));
+
+/* ----- schede delle IA ----- */
+function renderFormazione() {
+  const ids = okIds(); let src = state.fsrc;
+  if (!ids.length) { src = "base"; }
+  else if (src !== "base" && src !== "maj" && ids.indexOf(src) < 0) { src = "maj"; }
+  const srcs = [["maj", "Maggioranza"]].concat(ids.map((id) => [id, pname(id)]), [["base", "Base"]]);
+  const seg = ids.length ? '<div class="seg" role="group" aria-label="Fonte">' + srcs.map((s) =>
+    '<button data-fs="' + s[0] + '" aria-pressed="' + (s[0] === src) + '">' + esc(s[1]) + '</button>').join("") + '</div>' : "";
+  if (src === "base") { renderFormazioneBase(seg, !ids.length); return; }
+  const v = srcView(src);
+  const all = [].concat(v.xi.P || [], v.xi.D || [], v.xi.C || [], v.xi.A || []);
+  const flagged = all.filter((p) => stOf(ME, p.n));
+  const alertBox = flagged.length
+    ? '<div class="warnbox">Tra i titolari ci sono ' + flagged.map((p) => p.n + ' (' + LABEL_LOW[stOf(ME, p.n).k] + ')').join(", ") + '. Ricontrolla prima della scadenza.</div>'
+    : '<div class="okbox">Nessun titolare ha segnalazioni di infortunio o squalifica' + (hasStatus() ? "." : " (ma gli infortuni non sono stati cercati).") + '</div>';
+  const head = src === "maj"
+    ? '<p class="lead">Ogni posto va ai giocatori più votati dalle ' + v.n + ' IA. Modulo più votato: <b>' + esc(v.mod) + '</b> (' + v.modVotes + ' su ' + v.n + ').</p>'
+    : '<p class="lead">Risposta di ' + esc(pname(src)) + ', modulo <b>' + esc(v.mod) + '</b>.</p>';
+  let extra = "";
+  if (src === "maj") {
+    const mx = {}; all.forEach((p) => { mx[p.n] = true; });
+    extra = '<div class="card"><h3>Cosa dice ogni IA</h3>' + ids.map((id) => {
+      const d = store.results[id].data;
+      const names = [].concat(d.xi.P, d.xi.D, d.xi.C, d.xi.A).filter((n) => !mx[n]);
+      return '<div class="rk"><div class="top"><b>' + esc(pname(id)) + '</b><span>' + esc(d.modulo || "?") + '</span></div><div class="muted" style="font-size:13px">' +
+        (names.length ? 'Sceglie anche: ' + names.map(esc).join(", ") : 'Stessi titolari della maggioranza') + '</div></div>';
+    }).join("") + '</div>';
+  } else {
+    extra = (v.note ? '<div class="card"><h3>Note</h3><p>' + esc(v.note) + '</p></div>' : "") +
+      (v.warnings.length ? '<div class="card"><h3>Avvisi sulla risposta</h3><ul>' + v.warnings.map((x) => '<li>' + esc(x) + '</li>').join("") + '</ul></div>' : "");
+  }
+  $("formazione").innerHTML = '<h2>Formazione</h2>' + seg + head + pitchHtml(v, src === "maj") + alertBox +
+    '<div class="card"><h3>Panchina</h3><div class="rows">' + (v.bench.length ? v.bench.map((p) => rowOf(ME, p)).join("") : '<p class="lead">Nessuna indicata.</p>') + '</div></div>' +
+    extra + '<p class="lead">Le IA lavorano sullo stesso resoconto: se è sbagliato sbagliano insieme, quindi il loro accordo non è una verifica.</p>';
+}
+function aiHomeCard() {
+  const ids = okIds();
+  if (!ids.length) {
+    return '<div class="card"><h3>Analisi con le IA</h3><p>Nessuna IA ancora interpellata. Inserisci le chiavi, cerca le statistiche e chiedi i consigli.</p><button class="btn" data-go="analisi">Apri Analisi</button></div>';
+  }
+  const c = consensus();
+  return '<div class="card"><h3>Maggioranza delle IA</h3><p class="muted">' + ids.length + ' IA, modulo ' + esc(c.mod) + '.</p>' +
+    ["P", "D", "C", "A"].map((r) => '<div class="stat"><span class="muted">' + ROLES[r] + '</span><b>' + c.xi[r].map((p) => p.n).join(", ") + '</b></div>').join("") +
+    '<button class="btn" data-go="formazione">Apri il campo</button></div>';
+}
+function aiTradesCard(role) {
+  const ids = okIds();
+  if (!ids.length) {
+    return '<div class="card"><h3>Consigli delle IA</h3><p class="muted">Nessuna IA ha ancora risposto. Qui compariranno gli scambi dello stesso ruolo più proposti.</p><button class="btn ghost" data-go="analisi">Apri Analisi</button></div>';
+  }
+  const agg = tradeAgg(role);
+  const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>';
+  const body = agg.length ? agg.map((a) =>
+    '<div class="pair"><div><span class="lab">Offri</span>' + tileOf(ME, a.give) + '</div>' + arrow + '<div><span class="lab">Chiedi</span>' + tileOf(a.team, a.get) + '</div></div>' +
+    '<p class="by"><b>' + a.by.length + ' su ' + ids.length + '</b>: ' + a.by.map(esc).join(", ") + '</p>' +
+    (a.why.length ? '<p class="why">' + a.why.map(esc).join(" ") + '</p>' : "")).join("")
+    : '<p>Nessuna IA propone scambi per questo reparto.</p>';
+  return '<div class="card"><h3>Consigli delle IA</h3><p class="muted">' + ids.length + ' IA interpellate. Gli scambi più votati sono in cima, sempre dello stesso ruolo.</p>' + body + '</div>';
+}
+function statusRow(id) {
+  const r = store.results[id];
+  const has = id.indexOf("man:") === 0 || !!store.keys[id];
+  const st = !has ? "senza chiave" : (r && r.ok ? "risposta " + fmt(r.at) : (r ? "errore" : "non ancora interpellata"));
+  const warn = r && r.ok && r.data.warnings.length
+    ? '<details><summary>' + r.data.warnings.length + ' avvisi sulla risposta</summary><ul>' + r.data.warnings.map((x) => '<li>' + esc(x) + '</li>').join("") + '</ul></details>' : "";
+  return '<div class="st"><b>' + esc(pname(id)) + '</b><span class="muted">' + st + '</span>' +
+    (r && r.err ? '<div class="err" style="flex-basis:100%">' + esc(r.err) + '</div>' : "") + (warn ? '<div style="flex-basis:100%">' + warn + '</div>' : "") + '</div>';
+}
+function renderAnalisi() {
+  if (!$("analisi")) { return; }
+  const ids = Object.keys(PROV); const dis = state.busy ? " disabled" : "";
+  const keysHtml = ids.map((id) =>
+    '<div class="fld"><label for="k-' + id + '"><b>' + PROV[id].name + '</b> <span class="muted">' + PROV[id].hint + '</span></label>' +
+    '<input id="k-' + id + '" type="password" autocomplete="off" placeholder="Incolla la chiave" value="' + esc(store.keys[id] || "") + '">' +
+    '<input id="m-' + id + '" type="text" autocomplete="off" aria-label="Modello di ' + PROV[id].name + '" placeholder="Modello (facoltativo, vuoto = automatico)" value="' + esc(store.models[id] || "") + '"></div>').join("");
+  const d = store.dossier;
+  const dossierHtml = d
+    ? '<p class="muted">Aggiornate ' + fmt(d.at) + (d.web ? "" : " (senza ricerca web)") + (d.stati ? ", infortuni inclusi" : "") + '</p><details><summary>Mostra le statistiche trovate</summary><pre class="pre">' + esc(d.text) + '</pre></details>'
+    : '<p class="muted">Non ancora cercate.</p>';
+  const man = Object.keys(store.results).filter((k) => k.indexOf("man:") === 0).map(statusRow).join("");
+  const opts = Object.keys(MAN).map((k) => '<option value="' + k + '"' + (state.manKind === k ? " selected" : "") + '>' + MAN[k] + '</option>').join("");
+  $("analisi").innerHTML =
+    '<h2>Analisi</h2><p class="lead">Collega le IA gratuite, cerca le statistiche e chiedi i consigli. Le chiavi restano nel browser di questo dispositivo: non vengono salvate sul sito né nel tuo account.</p>' +
+    '<div class="card"><h3>1. Chiavi</h3>' + keysHtml + '<button class="btn"' + dis + ' data-act="save">Salva le chiavi</button></div>' +
+    '<div class="card"><h3>2. Calendario, statistiche e infortuni</h3><p class="muted">Gemini cerca su Google la prossima giornata, la forma dei giocatori, gli infortuni e i prossimi avversari. Serve qualche minuto e la chiave Gemini.</p>' + dossierHtml +
+    '<button class="btn"' + dis + ' data-act="dossier">Cerca le statistiche</button></div>' +
+    '<div class="card"><h3>3. Consigli delle IA</h3><p class="muted">Ogni IA riceve rose, svincolati, calendario e statistiche e risponde con formazione, scambi dello stesso ruolo e svincolati.</p>' +
+    ids.map(statusRow).join("") + man + '<button class="btn"' + dis + ' data-act="advice">Chiedi i consigli</button></div>' +
+    '<div class="card"><h3>ChatGPT e Claude, a mano</h3><p class="muted">Non hanno un\'API gratuita. Copia il prompt, incollalo nella loro app, poi incolla qui la risposta.</p>' +
+    '<button class="btn ghost" data-act="copy">Copia il prompt</button>' +
+    '<details id="pdet"><summary>Mostra il prompt</summary><textarea id="prompt-box" readonly aria-label="Prompt da copiare">' + esc(advicePrompt(true)) + '</textarea></details>' +
+    '<div class="fld"><label for="man-kind"><b>Chi ha risposto</b></label><select id="man-kind">' + opts + '</select>' +
+    '<label for="man-text"><b>Risposta incollata</b></label><textarea id="man-text" placeholder="Incolla qui la risposta in JSON">' + esc(state.manText) + '</textarea></div>' +
+    '<button class="btn"' + dis + ' data-act="addman">Aggiungi la risposta</button></div>' +
+    '<div class="card"><h3>Registro</h3><div class="logbox">' + (state.log.length ? esc(state.log.slice(-12).join("\n")) : "Ancora nessuna operazione.") + '</div>' +
+    '<button class="btn ghost"' + dis + ' data-act="clear">Cancella risultati e statistiche</button></div>';
+}
+function readKeys() {
+  Object.keys(PROV).forEach((id) => {
+    const k = $("k-" + id); const m = $("m-" + id);
+    if (k) { const v = k.value.trim(); if (v) { store.keys[id] = v; } else { delete store.keys[id]; } }
+    if (m) { const v = m.value.trim(); if (v) { store.models[id] = v; } else { delete store.models[id]; } }
+  });
+  autoModel = {};
+}
+async function withBusy(fn) {
+  state.busy = true; renderAnalisi();
+  try { await fn(); } catch (e) { log("Errore: " + e.message); }
+  state.busy = false; save(); renderAll();
+}
+function copyPrompt() {
+  const txt = advicePrompt(true);
+  const done = (ok) => {
+    log(ok ? "Prompt copiato: incollalo in ChatGPT o Claude" : "Copia non riuscita: apri 'Mostra il prompt' e copialo a mano");
+    if (!ok) { const p = $("pdet"); if (p) { p.open = true; } }
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(() => done(true), () => done(false)); }
+  else { done(false); }
+}
+
+/* ===== stima del valore dei giocatori, forza della squadra e calcolatore di scambio ===== */
+/* Il valore è una stima: crediti pagati rispetto agli altri dello stesso ruolo, disponibilità (assente o in dubbio) e,
+   se ci sono, i voti delle IA. Non usa fantamedie né statistiche vere. */
+let _pct = null;
+function resetCaches() { _pct = null; }
+function pctTable() {
+  if (_pct) { return _pct; }
+  _pct = {};
+  Object.keys(ROLES).forEach((r) => {
+    const all = []; TEAMS.forEach((t) => DATA[t].forEach((p) => { if (p.r === r) { all.push(p.c); } }));
+    _pct[r] = all;
+  });
+  return _pct;
+}
+function qOf(p) {
+  const arr = pctTable()[p.r] || []; if (!arr.length) { return 50; }
+  let lo = 0, eq = 0; arr.forEach((c) => { if (c < p.c) { lo++; } else if (c === p.c) { eq++; } });
+  return 100 * (lo + eq / 2) / arr.length;
+}
+const AVAIL = [1, 0.8, 0.45];
+const SHORT = { P: "Portieri", D: "Difesa", C: "Centro", A: "Attacco" };
+const n1 = (x) => (Math.round(x * 10) / 10).toFixed(1).replace(".", ",");
+const sgn = (x) => (x > 0.049 ? "+" : (x < -0.049 ? "−" : "")) + n1(Math.abs(x));
+function aiCtx() {
+  const ids = okIds(); if (!ids.length) { return null; }
+  const votes = {}; const targets = {};
+  ids.forEach((id) => { const x = store.results[id].data.xi; Object.keys(x).forEach((r) => x[r].forEach((n) => { votes[n] = (votes[n] || 0) + 1; })); });
+  Object.keys(ROLES).forEach((r) => tradeAgg(r).forEach((a) => { targets[a.get] = (targets[a.get] || 0) + a.by.length; }));
+  return { n: ids.length, votes: votes, targets: targets };
+}
+function valueOf(p, team, ctx) {
+  let v = qOf(p) * AVAIL[rank(team, p.n)];
+  if (ctx) {
+    if (ctx.votes[p.n]) { v += 10 * ctx.votes[p.n] / ctx.n; }
+    else if (ctx.targets[p.n]) { v += 8 * Math.min(1, ctx.targets[p.n] / ctx.n); }
+  }
+  return Math.min(100, v);
+}
+function xiValue(list, team, ctx, mod) {
+  const need = modNeed(mod); const out = { tot: 0, cnt: 0, byRole: {}, names: {}, bench: [] };
+  Object.keys(need).forEach((r) => {
+    const arr = list.filter((p) => p.r === r).map((p) => ({ n: p.n, v: valueOf(p, team, ctx) })).sort((a, b) => b.v - a.v);
+    const st = arr.slice(0, need[r]);
+    out.byRole[r] = { sum: st.reduce((s, x) => s + x.v, 0), n: need[r] };
+    out.names[r] = st.map((x) => x.n);
+    out.tot += out.byRole[r].sum; out.cnt += need[r];
+    arr.slice(need[r]).forEach((x) => out.bench.push(x.v));
+  });
+  out.bench.sort((a, b) => b - a);
+  out.benchAvg = out.bench.slice(0, 7).reduce((s, v) => s + v, 0) / 7;
+  return out;
+}
+function bestStrength(list, team, ctx) {
+  let best = null;
+  MODULES.forEach((m) => { const x = xiValue(list, team, ctx, m); if (!best || x.tot > best.tot) { best = x; best.mod = m; } });
+  const roleAvg = {};
+  Object.keys(ROLES).forEach((r) => { roleAvg[r] = best.byRole[r].sum / best.byRole[r].n; });
+  return { mod: best.mod, avg: best.tot / best.cnt, roleAvg: roleAvg, benchAvg: best.benchAvg, names: best.names };
+}
+
+/* ----- scheda "forza della rosa" in Home ----- */
+function gaugeHtml(v) {
+  let s = '';
+  for (let i = 0; i < 10; i++) { s += '<span><i style="width:' + Math.round(Math.max(0, Math.min(1, (v - i * 10) / 10)) * 100) + '%"></i></span>'; }
+  return '<div class="gauge" role="img" aria-label="Forza ' + n1(v) + ' su 100">' + s + '</div>';
+}
+function strengthCard() {
+  if (!(DATA[ME] || []).length) { return ""; }
+  const all = TEAMS.map((t) => ({ t: t, s: bestStrength(DATA[t], t, null) })).sort((a, b) => b.s.avg - a.s.avg);
+  const me = all.find((x) => x.t === ME); const pos = all.indexOf(me) + 1;
+  const tiles = ["P", "D", "C", "A"].map((r) => '<div class="rt r-' + r + '"><b>' + n1(me.s.roleAvg[r]) + '</b><span>' + SHORT[r] + '</span></div>').join("");
+  const rank1 = all.map((x) => '<div class="rk"><div class="top"><span>' + (x.t === ME ? "<b>" + esc(x.t) + "</b>" : esc(x.t)) + '</span><b>' + n1(x.s.avg) + '</b></div>' +
+    '<div class="meter"><span style="width:' + Math.round(x.s.avg) + '%"></span></div></div>').join("");
+  return '<div class="card"><h3>Forza della rosa</h3><p class="muted">Sei ' + pos + 'ª su ' + all.length + ' nella lega.</p>' +
+    '<div class="big" style="margin-top:10px">' + n1(me.s.avg) + ' <small>/100</small></div>' + gaugeHtml(me.s.avg) +
+    '<div class="rtiles">' + tiles + '</div>' +
+    '<details><summary>Classifica della lega</summary>' + rank1 + '</details>' +
+    '<p class="why">Stima sui titolari del modulo migliore (' + me.s.mod + '): conta quanto hai pagato i giocatori rispetto agli altri dello stesso ruolo e se sono assenti o in dubbio. Non usa le statistiche.</p></div>';
+}
+
+/* ----- calcolatore di scambio ----- */
+function evalTrade(calc) {
+  const done = calc.filter((c) => c.give && c.team && c.get);
+  if (!done.length) { return null; }
+  const mine = DATA[ME] || []; const giveN = {};
+  done.forEach((c) => { giveN[c.give] = true; });
+  const getP = done.map((c) => player(c.team, c.get)).filter(Boolean);
+  const giveP = mine.filter((p) => giveN[p.n]);
+  if (!getP.length || !giveP.length) { return null; }
+  const ctx = aiCtx();
+  const b = bestStrength(mine, ME, ctx);
+  const a = bestStrength(mine.filter((p) => !giveN[p.n]).concat(getP), ME, ctx);
+  const score = (a.avg - b.avg) + 0.2 * (a.benchAvg - b.benchAvg);
+  const byTeam = {};
+  done.forEach((c) => {
+    const o = byTeam[c.team] = byTeam[c.team] || { out: {}, inn: [] };
+    o.out[c.get] = true;
+    const p = mine.find((x) => x.n === c.give); if (p) { o.inn.push(p); }
+  });
+  const opp = Object.keys(byTeam).map((t) => {
+    const L = DATA[t]; const nl = L.filter((p) => !byTeam[t].out[p.n]).concat(byTeam[t].inn);
+    const bb = bestStrength(L, t, null); const aa = bestStrength(nl, t, null);
+    return { t: t, score: (aa.avg - bb.avg) + 0.2 * (aa.benchAvg - bb.benchAvg) };
+  });
+  const verdict = score >= 0.5 ? "good" : (score <= -0.5 ? "bad" : "even");
+  const flat = (x) => [].concat(x.names.P, x.names.D, x.names.C, x.names.A);
+  const bn = flat(b); const an = flat(a);
+  return { b: b, a: a, score: score, verdict: verdict, giveP: giveP, getP: getP, opp: opp, ai: !!ctx,
+    enter: an.filter((n) => bn.indexOf(n) < 0), exit: bn.filter((n) => an.indexOf(n) < 0) };
+}
+function calcResultHtml(res) {
+  const vt = { good: "Ci guadagni", even: "Scambio alla pari", bad: "Ci perdi" }[res.verdict];
+  const tiles = ["P", "D", "C", "A"].map((r) => {
+    const d = res.a.roleAvg[r] - res.b.roleAvg[r];
+    return '<div class="rt r-' + r + '"><b>' + n1(res.a.roleAvg[r]) + '</b><span>' + SHORT[r] + '</span><em class="' + (d > 0.049 ? "up" : (d < -0.049 ? "dn" : "")) + '">' + (Math.abs(d) < 0.05 ? "=" : sgn(d)) + '</em></div>';
+  }).join("");
+  const warn = res.getP.filter((p) => rank(ME, p.n) > 0).map((p) => esc(p.n) + " è " + LABEL_LOW[stOf(ME, p.n).k]);
+  const paidG = sum(res.giveP), paidR = sum(res.getP);
+  const oppTxt = res.opp.map((o) => {
+    if (o.score >= 0.3) { return "A <b>" + esc(o.t) + "</b> conviene (" + sgn(o.score) + "): è probabile che accetti."; }
+    if (o.score <= -0.3) { return "A <b>" + esc(o.t) + "</b> non conviene (" + sgn(o.score) + "): è probabile che rifiuti."; }
+    return "Per <b>" + esc(o.t) + "</b> il cambio è quasi neutro: potrebbe accettare."; }).join(" ");
+  return '<div class="verdict ' + res.verdict + '"><div class="vt">' + vt + '</div><p>Forza dei titolari: ' + n1(res.b.avg) + ' → <b>' + n1(res.a.avg) + '</b> (' + sgn(res.a.avg - res.b.avg) + ')</p></div>' +
+    '<div class="rtiles">' + tiles + '</div>' +
+    '<div class="stat"><span class="muted">Entrano in formazione</span><b>' + (res.enter.length ? res.enter.map(esc).join(", ") : "nessuno") + '</b></div>' +
+    '<div class="stat"><span class="muted">Escono dalla formazione</span><b>' + (res.exit.length ? res.exit.map(esc).join(", ") : "nessuno") + '</b></div>' +
+    '<div class="stat"><span class="muted">Crediti pagati: dai / ricevi</span><b>' + paidG + ' / ' + paidR + '</b></div>' +
+    (warn.length ? '<div class="warnbox">Attenzione: ' + warn.join("; ") + '.</div>' : "") +
+    '<p class="why">' + oppTxt + '</p>' +
+    '<p class="why">Stima basata su crediti pagati rispetto al ruolo, infortuni' + (res.ai ? " e voti delle IA" : "") + '. Non sono fantamedie: usala come primo filtro, poi controlla le statistiche.</p>';
+}
+function calcCard() {
+  const role = state.tradeRole;
+  const mine = (DATA[ME] || []).filter((p) => p.r === role).sort((a, b) => b.c - a.c);
+  const others = TEAMS.filter((t) => t !== ME);
+  if (!mine.length || !others.length) {
+    return '<div class="card"><h3>Calcolatore di scambio</h3><p class="muted">Servono giocatori di questo ruolo nella tua rosa e almeno un\'altra squadra.</p></div>';
+  }
+  if (!state.calc || !state.calc.length) { state.calc = [{ give: "", team: "", get: "" }]; }
+  const lab = (p, t) => p.n + " · " + p.c + (stOf(t, p.n) ? " (" + LABEL_LOW[stOf(t, p.n).k] + ")" : "");
+  const pairs = state.calc.map((c, i) => {
+    const usedG = state.calc.filter((x, j) => j !== i).map((x) => x.give);
+    const gOpts = '<option value="">Scegli un tuo giocatore</option>' + mine.filter((p) => usedG.indexOf(p.n) < 0)
+      .map((p) => '<option value="' + esc(p.n) + '"' + (c.give === p.n ? " selected" : "") + '>' + esc(lab(p, ME)) + '</option>').join("");
+    const tOpts = '<option value="">Scegli la squadra</option>' + others.map((t) => '<option value="' + esc(t) + '"' + (c.team === t ? " selected" : "") + '>' + esc(t) + '</option>').join("");
+    const theirs = c.team ? (DATA[c.team] || []).filter((p) => p.r === role).sort((a, b) => b.c - a.c) : [];
+    const usedR = state.calc.filter((x, j) => j !== i && x.team === c.team).map((x) => x.get);
+    const rOpts = '<option value="">' + (c.team ? "Scegli chi ricevi" : "Prima scegli la squadra") + '</option>' + theirs.filter((p) => usedR.indexOf(p.n) < 0)
+      .map((p) => '<option value="' + esc(p.n) + '"' + (c.get === p.n ? " selected" : "") + '>' + esc(lab(p, c.team)) + '</option>').join("");
+    return '<div class="cpair"><div class="chead"><b>Scambio ' + (i + 1) + '</b>' +
+      (state.calc.length > 1 ? '<button class="link" data-act="calc-del" data-i="' + i + '">Togli</button>' : "") + '</div>' +
+      '<div class="fld"><label for="cg' + i + '">Offri</label><select id="cg' + i + '" data-c="give" data-i="' + i + '">' + gOpts + '</select></div>' +
+      '<div class="fld"><label for="ct' + i + '">Squadra avversaria</label><select id="ct' + i + '" data-c="team" data-i="' + i + '">' + tOpts + '</select></div>' +
+      '<div class="fld"><label for="cr' + i + '">Ricevi</label><select id="cr' + i + '" data-c="get" data-i="' + i + '">' + rOpts + '</select></div></div>';
+  }).join("");
+  const res = evalTrade(state.calc);
+  return '<div class="card"><h3>Calcolatore di scambio</h3><p class="muted">Scegli cosa offri e cosa ricevi (stesso ruolo: ' + ROLES[role].toLowerCase() + ') e vedi se ci guadagni o ci perdi.</p>' + pairs +
+    (state.calc.length < 3 ? '<button class="btn ghost" data-act="calc-add">+ Aggiungi un altro scambio</button>' : "") +
+    (res ? calcResultHtml(res) : '<p class="why">Completa almeno uno scambio per vedere il verdetto.</p>') + '</div>';
+}
+
+/* ===== accesso, caricamento dati, avvio ===== */
+const AUTH = { mode: "login", msg: "", ok: false, busy: false, email: "" };
+let ONB = null;
+
+function setMode(m) { document.body.dataset.mode = m; }
+function screen(html) { $("screen-in").innerHTML = html; }
+function authMsg(e) {
+  const c = e && e.code ? e.code : "";
+  const map = {
+    "auth/email-already-in-use": "Esiste già un account con questa email: usa Accedi.",
+    "auth/invalid-email": "L'email non è valida.",
+    "auth/weak-password": "La password è troppo debole: usa almeno 6 caratteri.",
+    "auth/invalid-credential": "Email o password sbagliate.",
+    "auth/wrong-password": "Email o password sbagliate.",
+    "auth/user-not-found": "Email o password sbagliate.",
+    "auth/too-many-requests": "Troppi tentativi: aspetta qualche minuto e riprova.",
+    "auth/network-request-failed": "Connessione assente o bloccata: riprova.",
+    "auth/operation-not-allowed": "L'accesso con email non è attivo nel progetto Firebase.",
+    "auth/requires-recent-login": "Per sicurezza esci e rientra, poi riprova."
+  };
+  return map[c] || ("Errore: " + (e && e.message ? e.message : "riprova"));
+}
+function initFirebase() {
+  if (typeof firebase === "undefined") { throw new Error("Non riesco a caricare Firebase: controlla la connessione e ricarica la pagina."); }
+  firebase.initializeApp(FIREBASE_CONFIG);
+  auth = firebase.auth(); db = firebase.firestore();
+  try { if (db.settings) { db.settings({ experimentalAutoDetectLongPolling: true, merge: true }); } } catch (e) { /* impostazione facoltativa */ }
+}
+
+/* ----- schermata di accesso ----- */
+function renderAuth() {
+  setMode("screen"); renderHero();
+  const a = AUTH; const dis = a.busy ? " disabled" : ""; const su = a.mode === "signup";
+  screen('<div class="card"><div class="seg" role="group" aria-label="Accesso">' +
+    '<button data-am="login" aria-pressed="' + (!su) + '">Accedi</button><button data-am="signup" aria-pressed="' + su + '">Crea account</button></div>' +
+    '<h3 style="margin-top:12px">' + (su ? "Crea il tuo account" : "Bentornato") + '</h3>' +
+    '<p class="muted">' + (su ? "Poi caricherai le rose della tua lega e gli svincolati." : "Accedi per ritrovare la tua lega.") + '</p>' +
+    '<form id="authform" novalidate><div class="fld"><label for="a-email">Email</label>' +
+    '<input id="a-email" type="email" autocomplete="email" inputmode="email" value="' + esc(a.email) + '"></div>' +
+    '<div class="fld"><label for="a-pw">Password' + (su ? " (almeno 6 caratteri)" : "") + '</label>' +
+    '<input id="a-pw" type="password" autocomplete="' + (su ? "new-password" : "current-password") + '"></div>' +
+    (su ? '<label class="chk"><input id="a-agree" type="checkbox"> Ho letto l\'informativa sui dati qui sotto</label>' : "") +
+    (a.msg ? '<p class="' + (a.ok ? "okbox" : "warnbox") + '" role="status">' + esc(a.msg) + '</p>' : "") +
+    '<button class="btn" type="submit"' + dis + '>' + (a.busy ? "Attendi..." : (su ? "Crea account" : "Accedi")) + '</button></form>' +
+    (su ? "" : '<button class="link" data-act="forgot">Password dimenticata?</button>') + '</div>' +
+    '<div class="card">' + privacyHtml() + '</div>');
+}
+async function doAuth() {
+  const email = $("a-email").value.trim(); const pw = $("a-pw").value; const su = AUTH.mode === "signup";
+  AUTH.email = email; AUTH.ok = false;
+  if (!email || !pw) { AUTH.msg = "Inserisci email e password."; renderAuth(); return; }
+  if (su && !$("a-agree").checked) { AUTH.msg = "Per creare l'account spunta la casella dell'informativa."; renderAuth(); return; }
+  AUTH.busy = true; AUTH.msg = ""; renderAuth();
+  try {
+    if (su) { await auth.createUserWithEmailAndPassword(email, pw); } else { await auth.signInWithEmailAndPassword(email, pw); }
+  } catch (e) { AUTH.msg = authMsg(e); }
+  AUTH.busy = false;
+  if (!USER) { renderAuth(); }
+}
+async function forgot() {
+  const email = ($("a-email") ? $("a-email").value : "").trim(); AUTH.email = email;
+  if (!email) { AUTH.msg = "Scrivi prima la tua email, poi tocca Password dimenticata."; AUTH.ok = false; renderAuth(); return; }
+  try { await auth.sendPasswordResetEmail(email); AUTH.msg = "Se l'email è registrata, ti arriva un messaggio per scegliere una nuova password (controlla anche lo spam)."; AUTH.ok = true; }
+  catch (e) { AUTH.msg = authMsg(e); AUTH.ok = false; }
+  renderAuth();
+}
+
+/* ----- profilo su Firestore ----- */
+function applyLeague(p) {
+  const teams = {};
+  Object.keys(p.teams || {}).forEach((t) => {
+    const nm = clean(t); if (!nm) { return; }
+    teams[nm] = (p.teams[t] || []).map((x) => ({ n: clean(x.n), r: "PDCA".indexOf(x.r) >= 0 && x.r ? x.r : "C", c: Number(x.c) || 0 })).filter((x) => x.n);
+  });
+  DATA = teams; TEAMS = Object.keys(DATA);
+  FREE = (p.free || []).map((x) => ({ n: clean(x.n), r: "PDCA".indexOf(x.r) >= 0 && x.r ? x.r : "C", c: Number(x.c) || 0, t: clean(x.t || "") })).filter((x) => x.n);
+  LEAGUE = clean(p.leagueName || "");
+  ME = DATA[clean(p.me)] ? clean(p.me) : (TEAMS[0] || "");
+  state.roseTeam = ME; state.calc = null; resetCaches();
+}
+function applyProfile() {
+  let teams = {}, free = [];
+  try { teams = JSON.parse(PROFILE.teams || "{}"); free = JSON.parse(PROFILE.free || "[]"); } catch (e) { /* dati rovinati */ }
+  applyLeague({ teams: teams, free: free, me: PROFILE.me, leagueName: PROFILE.leagueName });
+}
+async function writeProfile(teams, free, me, league) {
+  const doc = {
+    v: 1, me: me, leagueName: league, teams: JSON.stringify(teams), free: JSON.stringify(free),
+    updatedAt: Date.now(), consentAt: (PROFILE && PROFILE.consentAt) || Date.now()
+  };
+  await db.collection("users").doc(USER.uid).set(doc);
+  PROFILE = doc; applyProfile();
+}
+function showError(msg) {
+  setMode("screen"); renderHero();
+  screen('<div class="card"><h3>Qualcosa non va</h3><p class="err">' + esc(msg) + '</p><div class="btnrow"><button class="btn" data-act="retry">Riprova</button><button class="btn ghost" data-act="logout">Esci</button></div></div>');
+}
+async function afterLogin() {
+  setMode("screen"); renderHero();
+  screen('<div class="card"><h3>Carico la tua lega...</h3></div>');
+  try {
+    const snap = await db.collection("users").doc(USER.uid).get();
+    PROFILE = snap.exists ? snap.data() : null;
+    if (PROFILE) { applyProfile(); }
+  } catch (e) {
+    const c = e && e.code;
+    showError(c === "permission-denied" ? "Il database rifiuta l'accesso: le regole di sicurezza di Firestore non sono state impostate."
+      : (c === "unavailable" || /offline/i.test(String(e && e.message)) ? "Non riesco a collegarmi al database. Controlla la connessione e che Firestore sia stato creato nel progetto Firebase."
+      : "Non riesco a leggere i dati: " + (e.message || e)));
+    return;
+  }
+  loadLocal(); await loadImgs();
+  if (PROFILE && TEAMS.length) { enterApp(); } else { startOnb(); }
+}
+function enterApp() {
+  ONB = null; setMode("app"); buildNav(); renderAll(); window.scrollTo(0, 0);
+}
+
+/* ----- primo avvio: rose, squadra, svincolati ----- */
+function startOnb(o) {
+  ONB = Object.assign({ step: 1, only: null, teams: null, me: "", league: LEAGUE, free: null, msg: "", text: "" }, o || {});
+  if (PROFILE && TEAMS.length) { ONB.me = ME; }
+  renderOnb();
+}
+function stepsBar(n) { return '<div class="steps" aria-label="Passo ' + n + ' di 3">' + [1, 2, 3].map((i) => '<span class="' + (i <= n ? "on" : "") + '"></span>').join("") + '</div>'; }
+function renderOnb() {
+  setMode("screen"); renderHero();
+  const o = ONB; const cancel = o.only ? '<button class="btn ghost" data-act="onb-cancel">Annulla</button>' : '<button class="link" data-act="logout">Esci</button>';
+  const msg = o.msg ? '<p class="' + (/^(Leggo|Salvo)/.test(o.msg) ? "muted" : "err") + '" role="status">' + esc(o.msg) + '</p>' : "";
+  if (o.step === 1) {
+    const sum1 = o.teams ? '<div class="okbox">Trovate ' + Object.keys(o.teams).length + ' squadre: ' + Object.keys(o.teams).map((t) => esc(t) + ' (' + o.teams[t].length + ')').join(", ") + '.</div>' : "";
+    screen(stepsBar(1) + '<div class="card"><h3>1. Le rose della lega</h3>' +
+      '<p>Carica il file Excel (.xlsx) delle rose esportato da Leghe FC: una colonna per ogni squadra, con a fianco la colonna "costo". I ruoli li leggo dal colore delle celle.</p>' +
+      '<div class="btnrow"><label class="btn" for="f-rose">Scegli il file</label></div>' +
+      '<input id="f-rose" class="vh" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">' + msg + sum1 +
+      '<div class="btnrow">' + (o.teams ? '<button class="btn" data-act="onb-next">Continua</button>' : "") + cancel + '</div></div>');
+    return;
+  }
+  if (o.step === 2) {
+    const names = Object.keys(o.teams || DATA);
+    const opts = '<option value="">Scegli la tua squadra</option>' + names.map((t) => '<option value="' + esc(t) + '"' + (t === o.me ? " selected" : "") + '>' + esc(t) + '</option>').join("");
+    screen(stepsBar(2) + '<div class="card"><h3>2. La tua squadra</h3>' +
+      '<div class="fld"><label for="onb-me">Quale squadra alleni?</label><select id="onb-me">' + opts + '</select></div>' +
+      '<div class="fld"><label for="onb-league">Nome della lega (facoltativo)</label><input id="onb-league" type="text" maxlength="40" value="' + esc(o.league) + '"></div>' + msg +
+      '<div class="btnrow"><button class="btn" data-act="onb-team">' + (o.only === "rose" ? "Salva" : "Continua") + '</button>' + cancel + '</div></div>');
+    return;
+  }
+  const prev = o.free ? '<div class="okbox">Trovati ' + o.free.length + ' svincolati (' + Object.keys(ROLES).map((r) => r + " " + o.free.filter((p) => p.r === r).length).join(", ") + '). Primi: ' +
+    o.free.slice(0, 6).map((p) => esc(p.n)).join(", ") + '.</div>' : "";
+  screen((o.only ? "" : stepsBar(3)) + '<div class="card"><h3>' + (o.only ? "Svincolati" : "3. Gli svincolati") + '</h3>' +
+    '<p>Carica il file (.xlsx o .csv) con l\'elenco degli svincolati, oppure incolla qui sotto il testo copiato da Leghe FC. Servono almeno nome e ruolo.</p>' +
+    '<div class="btnrow"><label class="btn" for="f-free">Scegli il file</label></div>' +
+    '<input id="f-free" class="vh" type="file" accept=".xlsx,.csv,.txt,text/csv,text/plain">' +
+    '<div class="fld"><label for="free-text">Oppure incolla il testo</label><textarea id="free-text" placeholder="Per esempio una riga per giocatore: D  Bastoni  Inter  12">' + esc(o.text) + '</textarea></div>' +
+    '<button class="btn ghost" data-act="onb-parse">Analizza il testo</button>' + msg + prev +
+    '<div class="btnrow">' + (o.free ? '<button class="btn" data-act="onb-finish">' + (o.only ? "Salva" : "Salva e inizia") + '</button>' : "") +
+    (o.only ? "" : '<button class="btn ghost" data-act="onb-skip">Salta, li carico dopo</button>') + cancel + '</div></div>');
+}
+async function onRoseFile(file) {
+  ONB.msg = "Leggo il file..."; renderOnb();
+  try {
+    const sheets = await readXlsx(await file.arrayBuffer());
+    let teams = null, err = null;
+    for (let i = 0; i < sheets.length && !teams; i++) { try { teams = parseRoster(sheets[i]); } catch (e) { err = e; } }
+    if (!teams) { throw err || new Error("Nel file non trovo nessuna rosa."); }
+    ONB.teams = teams; ONB.msg = "";
+    if (!teams[ONB.me]) { ONB.me = ""; }
+  } catch (e) {
+    ONB.teams = null; ONB.msg = e.message || "Non riesco a leggere il file.";
+  }
+  renderOnb();
+}
+async function onFreeFile(file) {
+  ONB.msg = "Leggo il file..."; renderOnb();
+  try {
+    const list = await parseFreeFile(file);
+    if (!list.length) { throw new Error("Non ho riconosciuto nessun giocatore nel file. Prova a incollare il testo, oppure mandami un esempio dell'elenco."); }
+    ONB.free = list; ONB.msg = "";
+  } catch (e) { ONB.free = null; ONB.msg = e.message || "Non riesco a leggere il file."; }
+  renderOnb();
+}
+async function finishOnb(skipFree) {
+  const o = ONB;
+  const teams = o.teams || DATA;
+  const free = skipFree ? (o.only === "free" ? FREE : (o.free || FREE)) : (o.free || FREE);
+  const me = o.me || ME; const league = clean(o.league);
+  o.msg = "Salvo..."; renderOnb();
+  try {
+    if (o.teams) { store.results = {}; store.dossier = null; store.status = {}; save(); applyLocalData(); }
+    await writeProfile(teams, free, me, league);
+  } catch (e) {
+    o.msg = e && e.code === "permission-denied" ? "Il database rifiuta il salvataggio: controlla le regole di Firestore." : "Salvataggio non riuscito: " + (e.message || e);
+    renderOnb(); return;
+  }
+  enterApp(); go("home");
+}
+
+/* ----- azioni ----- */
+async function logout() {
+  try { await auth.signOut(); } catch (e) { /* già fuori */ }
+}
+async function delAcct() {
+  if (!state.delAsk) { state.delAsk = true; renderProfilo(); return; }
+  state.delAsk = false; state.busy = true; renderProfilo();
+  const uid = USER.uid;
+  try { await db.collection("users").doc(uid).delete(); } catch (e) { state.busy = false; state.msg = "Cancellazione dei dati non riuscita: " + (e.message || e); renderAll(); return; }
+  lsDelAll(); IMGS = {}; await idbPut(uid, {});
+  try { await USER.delete(); AUTH.msg = "Account e dati cancellati."; AUTH.ok = true; }
+  catch (e) {
+    state.busy = false;
+    state.msg = e.code === "auth/requires-recent-login" ? "I tuoi dati sono stati cancellati. Per cancellare anche l'account esci, rientra e tocca di nuovo il pulsante." : authMsg(e);
+    PROFILE = null; DATA = {}; TEAMS = []; FREE = []; ME = "";
+    startOnb(); ONB.msg = state.msg; renderOnb(); return;
+  }
+  state.busy = false;
+}
+function act(a, d) {
+  if (state.busy && a !== "logout") { return; }
+  if (a === "save") { readKeys(); save(); log("Chiavi salvate"); return; }
+  if (a === "dossier") { readKeys(); save(); withBusy(buildDossier); return; }
+  if (a === "advice") {
+    readKeys(); save();
+    const ids = Object.keys(PROV).filter((id) => store.keys[id]);
+    if (!ids.length) { log("Inserisci almeno una chiave"); return; }
+    withBusy(() => runAdvice(ids)); return;
+  }
+  if (a === "copy") { copyPrompt(); return; }
+  if (a === "addman") {
+    const tx = $("man-text") ? $("man-text").value : state.manText;
+    const kind = $("man-kind") ? $("man-kind").value : state.manKind;
+    try {
+      const data = validateAI(parseJSONText(tx));
+      store.results["man:" + kind] = { ok: true, at: Date.now(), data: data };
+      state.manText = ""; save(); log(MAN[kind] + ": risposta aggiunta"); renderAll();
+    } catch (e) { log("Risposta non valida: " + e.message); }
+    return;
+  }
+  if (a === "clear") { store.results = {}; store.dossier = null; store.status = {}; store.cal = null; applyLocalData(); save(); log("Risultati cancellati"); renderAll(); return; }
+  if (a === "imgclear") { IMGS = {}; saveImgs(); state.msg = "Immagini rimosse."; renderAll(); return; }
+  if (a === "calc-add") { state.calc = (state.calc || []).concat([{ give: "", team: "", get: "" }]); renderScambi(); return; }
+  if (a === "calc-del") { state.calc.splice(Number(d.i), 1); renderScambi(); return; }
+  if (a === "logout") { logout(); return; }
+  if (a === "retry") { afterLogin(); return; }
+  if (a === "forgot") { forgot(); return; }
+  if (a === "setme") {
+    const v = $("p-me") ? $("p-me").value : ME;
+    state.busy = true; renderProfilo();
+    writeProfile(DATA, FREE, v, LEAGUE).then(() => { state.busy = false; state.msg = "Squadra cambiata."; renderAll(); },
+      (e) => { state.busy = false; state.msg = "Non riesco a salvare: " + (e.message || e); renderAll(); });
+    return;
+  }
+  if (a === "reloadrose") { state.msg = ""; startOnb({ step: 1, only: "rose", league: LEAGUE }); return; }
+  if (a === "reloadfree") { state.msg = ""; startOnb({ step: 3, only: "free" }); return; }
+  if (a === "wipelocal") { lsDelAll(); IMGS = {}; idbPut(USER.uid, {}); loadLocal(); state.log = []; state.msg = "Dati di questo dispositivo cancellati."; renderAll(); return; }
+  if (a === "delacct") { delAcct(); return; }
+  if (a === "onb-cancel") { enterApp(); return; }
+  if (a === "onb-next") { if (ONB.teams) { ONB.step = 2; ONB.msg = ""; renderOnb(); } return; }
+  if (a === "onb-team") {
+    const me = $("onb-me").value; const lg = $("onb-league").value;
+    if (!me) { ONB.msg = "Scegli la squadra che alleni."; renderOnb(); return; }
+    ONB.me = me; ONB.league = lg;
+    if (ONB.only === "rose") { finishOnb(true); } else { ONB.step = 3; ONB.msg = ""; renderOnb(); }
+    return;
+  }
+  if (a === "onb-parse") {
+    const tx = $("free-text").value; ONB.text = tx;
+    const list = parseFreeText(tx);
+    ONB.free = list.length ? list : null;
+    ONB.msg = list.length ? "" : "Non ho riconosciuto nessun giocatore: serve almeno il ruolo (P, D, C o A) e il nome su ogni riga.";
+    renderOnb(); return;
+  }
+  if (a === "onb-finish") { finishOnb(false); return; }
+  if (a === "onb-skip") { ONB.free = null; finishOnb(true); return; }
+}
+
+/* ----- eventi ----- */
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) { return; }
+  const d = b.dataset;
+  if (d.go) { go(d.go); return; }
+  if (d.am) { AUTH.mode = d.am; AUTH.msg = ""; const em = $("a-email"); if (em) { AUTH.email = em.value; } renderAuth(); return; }
+  if (d.mod) { state.mod = d.mod; renderFormazione(); return; }
+  if (d.tr) { state.tradeRole = d.tr; state.calc = null; renderScambi(); return; }
+  if (d.fs) { state.fsrc = d.fs; renderFormazione(); return; }
+  if (d.lv) { state.legaView = d.lv; renderLega(); return; }
+  if (d.inft) { state.infTeam = d.inft; renderLega(); return; }
+  if (d.infk) { state.infKind = d.infk; renderLega(); return; }
+  if (d.rt) { state.roseTeam = d.rt; renderRose(); return; }
+  if (d.rr) { state.roseRole = d.rr; renderRose(); return; }
+  if (d.act) { act(d.act, d); return; }
+});
+document.addEventListener("submit", (e) => { e.preventDefault(); if (e.target.id === "authform") { doAuth(); } });
+document.addEventListener("input", (e) => {
+  const id = e.target.id;
+  if (id === "man-text") { state.manText = e.target.value; }
+  if (id === "onb-league" && ONB) { ONB.league = e.target.value; }
+  if (id === "free-text" && ONB) { ONB.text = e.target.value; }
+});
+document.addEventListener("change", (e) => {
+  const t = e.target; const id = t.id;
+  if (id === "man-kind") { state.manKind = t.value; }
+  if (t.dataset && t.dataset.c && state.calc) {
+    const c = state.calc[Number(t.dataset.i)];
+    if (c) { c[t.dataset.c] = t.value; if (t.dataset.c === "team") { c.get = ""; } renderScambi(); }
+  }
+  if (id === "onb-me" && ONB) { ONB.me = t.value; }
+  if (id === "f-rose" && t.files && t.files[0] && ONB) { const f = t.files[0]; t.value = ""; onRoseFile(f); }
+  if (id === "f-free" && t.files && t.files[0] && ONB) { const f = t.files[0]; t.value = ""; onFreeFile(f); }
+  if (id === "f-img" && t.files && t.files.length) { const fs = Array.from(t.files); t.value = ""; addImages(fs); }
+});
+window.addEventListener("hashchange", () => { if (document.body.dataset.mode === "app") { route(); } });
+
+function init() {
+  buildNav(); setMode("screen"); renderHero();
+  screen('<div class="card"><h3>Carico...</h3></div>');
+  try { initFirebase(); } catch (e) { showError(e.message); return; }
+  auth.onAuthStateChanged((u) => {
+    if (!u) {
+      USER = null; PROFILE = null; DATA = {}; TEAMS = []; FREE = []; ME = ""; IMGS = {}; ONB = null;
+      state.log = []; state.msg = ""; state.delAsk = false; state.busy = false; AUTH.busy = false;
+      store.keys = {}; store.models = {}; store.dossier = null; store.results = {}; store.status = {}; store.cal = null; applyLocalData();
+      renderAuth(); return;
+    }
+    USER = u; afterLogin();
+  });
+}
+init();
+
+</script>
+</body>
+</html>
